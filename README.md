@@ -1,2 +1,2 @@
 # lunefresh-stakeholder-map
-Interactive stakeholder map for the LuneFresh projct
+Interactive stakeholder map for the LüneFresh project.
