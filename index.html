@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Lüneburg Stakeholder Map · LüneFresh</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ec; --ink: #1a1a1a; --ink-2: #5a5448; --line: #e3ddcd;
+    --accent: oklch(0.45 0.12 35); --accent-soft: oklch(0.94 0.04 35);
+    --agri-color: oklch(0.62 0.13 145); --retail-color: oklch(0.60 0.12 240);
+    --ngo-color: oklch(0.74 0.13 55); --political-color: oklch(0.55 0.16 25);
+    --large-chain-color: oklch(0.65 0.01 240);
+    --serif: 'Inter', system-ui, sans-serif; --display: 'Fraunces', Georgia, serif;
+    --trusted-color: #1b8a5a; --missing-color: #dc2626; --pressure-color: #8b5cf6;
+    --commercial-color: #9ca3af; --connector-color: #d97706;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
+  header h1, aside h2 { font-family: var(--display); font-weight: 500; letter-spacing: -.015em; }
+  .app { display: grid; grid-template-columns: 1fr 420px; height: 100vh; }
+
+  header { position: absolute; top: 26px; left: 36px; z-index: 5; max-width: 600px; pointer-events: none; }
+  header * { pointer-events: auto; }
+  header .eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; font-weight: 700; }
+  header h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -.02em; }
+  header p { font-size: 16px; color: var(--ink-2); margin: 0; line-height: 1.5; }
+
+  .legend {
+    position: absolute; bottom: 26px; left: 36px;
+    display: flex; flex-direction: column; gap: 12px;
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    padding: 18px 20px; border-radius: 14px; border: 1px solid var(--line);
+    font-size: 14.5px; max-width: 380px; z-index: 5;
+  }
+  .leg-section { display: flex; flex-direction: column; gap: 7px; }
+  .leg-title { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 2px; }
+  .leg-row { display: flex; align-items: center; gap: 9px; }
+  .leg-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid var(--ink); }
+  .leg-line { width: 22px; height: 0; border-top: 2.5px solid; flex-shrink: 0; }
+  .leg-line.dotted { border-top-style: dotted; border-top-width: 3px; }
+  .leg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 16px; }
+  .leg-divider { height: 1px; background: var(--line); margin: 2px 0; }
+
+  /* Sector filter toggles */
+  .sector-filters { position: absolute; top: 26px; right: 26px; z-index: 6; display: flex; gap: 8px; }
+  .sf-btn { font-family: var(--serif); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); cursor: pointer; color: var(--ink-2); transition: all .15s; }
+  .sf-btn.active { color: #fff; border-color: transparent; }
+  .sf-btn[data-s="agri"].active { background: var(--agri-color); }
+  .sf-btn[data-s="retail"].active { background: var(--retail-color); }
+  .sf-btn[data-s="ngo"].active { background: var(--ngo-color); }
+  .sf-btn[data-s="political"].active { background: var(--political-color); }
+  .sf-btn[data-s="all"].active { background: var(--ink); }
+
+  /* Search bar, bottom center */
+  .search-wrap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; width: 360px; }
+  .search-box { width: 100%; padding: 13px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(10px); font-family: var(--serif); font-size: 15px; color: var(--ink); outline: none; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
+  .search-box::placeholder { color: var(--ink-2); }
+  .search-results { position: absolute; bottom: calc(100% + 8px); left: 0; right: 0; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 28px rgba(0,0,0,.12); overflow: hidden; display: none; max-height: 260px; overflow-y: auto; }
+  .search-results.open { display: block; }
+  .search-result-item { padding: 11px 18px; font-size: 14.5px; cursor: pointer; display: flex; align-items: center; gap: 9px; }
+  .search-result-item:hover { background: var(--accent-soft); }
+
+  aside { background: #fff; border-left: 1px solid var(--line); padding: 32px 28px; overflow-y: auto; }
+  aside h2 { font-size: 25px; margin: 4px 0 5px; }
+  aside .cat { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+  aside .sub { font-size: 16px; color: var(--ink-2); line-height: 1.6; margin: 10px 0; }
+  aside .section-label { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin: 20px 0 10px; border-top: 1px solid var(--line); padding-top: 16px; }
+  aside ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  aside li { cursor: pointer; padding: 10px 12px; border-radius: 10px; transition: background .15s; }
+  aside li:hover { background: var(--accent-soft); }
+  .partner-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .partner-name { font-weight: 600; font-size: 15.5px; }
+  .rel-badge { font-size: 11px; padding: 3px 10px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+  .rel-badge.trusted { background: #1b8a5a22; color: #1b8a5a; }
+  .rel-badge.missing { background: #dc262622; color: #dc2626; }
+  .rel-badge.pressure { background: #8b5cf622; color: #8b5cf6; }
+  .rel-badge.commercial { background: #9ca3af33; color: #6b7280; }
+  .rel-desc { font-size: 14px; color: var(--ink-2); line-height: 1.5; font-style: italic; }
+  .clear { margin-top: 20px; background: none; border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; font-size: 14.5px; cursor: pointer; color: var(--ink-2); }
+  .clear:hover { background: var(--accent-soft); }
+  #panel-empty { color: var(--ink-2); font-size: 16px; line-height: 1.65; padding-top: 8px; }
+
+  .entity-card { background: var(--accent-soft); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; }
+  .entity-name { font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }
+  .entity-role { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); margin-bottom: 5px; font-weight: 600; }
+  .entity-desc { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+
+  .stat-row { display: flex; gap: 0; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .stat { flex: 1; }
+  .stat .n { font-family: var(--display); font-size: 30px; font-weight: 600; }
+  .stat .l { font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+
+  svg#graph { width: 100%; height: 100%; display: block; cursor: default; }
+  .node circle { transition: opacity .2s; }
+  .node text { font-weight: 600; fill: var(--ink); pointer-events: none; text-shadow: 0 1px 3px var(--bg), 0 -1px 3px var(--bg), 1px 0 3px var(--bg), -1px 0 3px var(--bg); font-size: 15px; }
+  .node .label-minor { opacity: 0; transition: opacity .15s; }
+  .node.label-visible .label-minor { opacity: 1; }
+  .node.dim circle, .node.dim text { opacity: .12; }
+  .node.faded circle, .node.faded text { opacity: .08; }
+  .node.active circle { stroke-width: 4; }
+  .node.keyConnector circle { stroke: var(--connector-color) !important; stroke-width: 4; }
+  .node.keyConnector .star { font-size: 16px; fill: var(--connector-color); }
+  .node.dormant circle { stroke-dasharray: 6,3; opacity: .7; }
+  .node.dormant text { opacity: .6; }
+
+  .link { fill: none; stroke-width: 2; transition: opacity .2s; }
+  .link.trusted { stroke: var(--trusted-color); }
+  .link.commercial { stroke: var(--commercial-color); }
+  .link.pressure { stroke: var(--pressure-color); stroke-width: 2.8; }
+  .link.missing { stroke: var(--missing-color); stroke-dasharray: 5,5; stroke-width: 1.8; }
+  .link.dim { opacity: .06; }
+  .link.active { opacity: 1; stroke-width: 3.2; }
+
+  .zoom-controls { position: absolute; bottom: 84px; right: 20px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
+  .zoom-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); color: var(--ink-2); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: var(--serif); opacity: .75; }
+  .zoom-btn:hover { opacity: 1; background: var(--accent-soft); }
+  .zone-tag { position: absolute; top: 26px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); opacity: .45; pointer-events: none; z-index: 4; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div style="position:relative;overflow:hidden;">
+    <header>
+      <div class="eyebrow">LÜNEFRESH · STAKEHOLDER RESEARCH</div>
+      <h1>Lüneburg Stakeholder Map</h1>
+      <p>An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.</p>
+    </header>
+
+    <div class="sector-filters" id="sectorFilters">
+      <button class="sf-btn active" data-s="all">All</button>
+      <button class="sf-btn" data-s="agri">Agricultural</button>
+      <button class="sf-btn" data-s="retail">Retail &amp; Gastronomy</button>
+      <button class="sf-btn" data-s="ngo">NGOs &amp; Civil Society</button>
+      <button class="sf-btn" data-s="political">Political &amp; Public</button>
+    </div>
+
+    <svg id="graph"></svg>
+
+    <div class="zoom-controls">
+      <button class="zoom-btn" id="btn-zoom-in" title="Zoom in">+</button>
+      <button class="zoom-btn" id="btn-zoom-reset" title="Reset">⊙</button>
+      <button class="zoom-btn" id="btn-zoom-out" title="Zoom out">−</button>
+    </div>
+
+    <div class="legend">
+      <div class="leg-section">
+        <div class="leg-title">Actor Sectors</div>
+        <div class="leg-grid">
+          <div class="leg-row"><span class="leg-dot" style="background:var(--agri-color)"></span>Agricultural Producers</div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--retail-color)"></span>Retail &amp; Gastronomy</div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--ngo-color)"></span>NGOs &amp; Civil Society</div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--political-color)"></span>Political &amp; Public Admin.</div>
+        </div>
+        <div style="font-size:13px;color:var(--ink-2);margin-top:4px;"><span class="leg-dot" style="background:var(--large-chain-color);width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:6px;"></span>Grey = large supermarket chain / wholesale</div>
+      </div>
+      <div class="leg-divider"></div>
+      <div class="leg-section">
+        <div class="leg-title">Relationships</div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--trusted-color)"></span>Active &amp; Trusted</div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--commercial-color)"></span>Commercial Transaction</div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--pressure-color)"></span>Structural Pressure</div>
+        <div class="leg-row"><span class="leg-line dotted" style="border-color:var(--missing-color)"></span>Missing but Plausible</div>
+      </div>
+      <div class="leg-divider"></div>
+      <div class="leg-section">
+        <div class="leg-row"><span style="color:var(--connector-color);font-weight:700;font-size:16px;">★</span>Key Connector — bridges otherwise disconnected groups</div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <div class="search-results" id="searchResults"></div>
+      <input class="search-box" id="searchBox" type="text" placeholder="Search for an organization…" autocomplete="off">
+    </div>
+
+    <div class="zone-tag" id="largeChainTag" style="right:36px;">Large Chain</div>
+  </div>
+
+  <aside>
+    <div id="panel-empty">Click any actor to see their role, relationships, and what the research found. Drag the background to pan, scroll to zoom.</div>
+    <div id="panel-detail" style="display:none"></div>
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="s-nodes">0</div><div class="l">Actors</div></div>
+      <div class="stat"><div class="n" id="s-links">0</div><div class="l">Relations</div></div>
+      <div class="stat"><div class="n">4</div><div class="l">Sectors</div></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// ===========================================================================
+// DATA — derived from the coded interview dataset (11 coded + 2 uncoded
+// contacts). No interview codes or individual interviewee names are
+// surfaced; only organisations appear.
+// ===========================================================================
+const NODES = [
+  // ---- POLITICAL & PUBLIC ADMINISTRATION ----
+  { id: 'stadt_lueneburg', name: 'Stadt Lüneburg', sphere: 'political', status: 'interviewed',
+    role: 'Municipal Administration',
+    desc: 'Manages all three Lüneburg markets through a small administrative team. Holds licensing and stand-allocation power, but has little active engagement with food producers or restaurants beyond market operations.',
+    power: 'High formal authority over market licensing and regulation, but limited active engagement with local food actors.' },
+  { id: 'naturparkregion', name: 'Naturparkregion Lüneburger Heide e.V.', sphere: 'political', status: 'contacted',
+    role: 'Regional Planning Association',
+    desc: 'Focuses on sustainable regional development and rural-urban logistics. Contacted during outreach; not part of the coded interview analysis.' },
+  { id: 'biostadt_project', name: 'Biostadt Project (Dormant)', sphere: 'political', dormant: true,
+    role: 'Dormant Municipal Organic Platform',
+    desc: 'A city policy initiative aimed at organic public procurement, ready to be reactivated. The city council could revive it unilaterally.',
+    power: 'Dormant formal authority; reactivation requires only authority the city already holds.' },
+  { id: 'wochenmarkt', name: 'Lüneburg Weekly Market (Wochenmarkt)', sphere: 'political', zone: 'market',
+    role: 'Market Venue & Sales Channel',
+    desc: 'The city\'s weekly market, run by Stadt Lüneburg\'s small market-administration team. A central sales channel for several producers, though its opening hours are increasingly mismatched with modern shopping habits.' },
+
+  // ---- NGOs & CIVIL SOCIETY ----
+  { id: 'slow_food', name: 'Slow Food Lüneburg', sphere: 'ngo', status: 'interviewed', keyConnector: true,
+    role: 'Food Movement NPO · Key Connector',
+    desc: 'Creates spaces where producers, retailers, and consumers actually meet, using storytelling about seasonality and pricing. Doing institutional-level bridging work without an institution behind it.',
+    power: 'Connects producers, retailers, and consumers informally; no formal institutional backing.' },
+  { id: 'zukunftsrat', name: 'Zukunftsrat Lüneburg', sphere: 'ngo', status: 'interviewed', keyConnector: true,
+    role: 'Citizen Action Association · Key Connector',
+    desc: 'Bridges city food-policy thinking and the day-to-day reality of farmers and retailers. Identified the dormant Ernährungsrat and school procurement policy as concrete opportunities.',
+    power: 'Bridges city policy thinking and producer/retailer reality; identified reactivation opportunities the city hasn\'t yet used.' },
+  { id: 'foodsharing', name: 'Foodsharing Lüneburg', sphere: 'ngo',
+    role: 'Grassroots Waste Reduction NPO',
+    desc: 'An active voluntary network salvaging surplus food across local retail shops for around a decade.' },
+  { id: 'campus_ev', name: 'Campus e.V. (Hof an den Teichen)', sphere: 'ngo',
+    role: 'Social Enterprise Network',
+    desc: 'A major local social initiative spanning 20-25 project units, integrating community gardens and inclusive agriculture.' },
+  { id: 'local_consumers', name: 'Local Consumers', sphere: 'ngo',
+    role: 'Urban Consumer Base',
+    desc: 'Driven by real environmental and social awareness, yet most purchases are still decided primarily on price.' },
+  { id: 'ernaehrungsrat', name: 'Ernährungsrat (Dormant)', sphere: 'ngo', dormant: true,
+    role: 'Dormant Food Policy Council',
+    desc: 'Exists formally but is inactive due to volunteer fatigue and lack of a funded coordinator. Farmers have withdrawn, leaving production unrepresented in the system\'s only multi-stakeholder governance body.',
+    power: 'Dormant formal authority — could be reactivated without creating any new institution.' },
+
+  // ---- RETAIL & GASTRONOMY ----
+  { id: 'edeka_tschorn', name: 'EDEKA Tschorn', sphere: 'retail', status: 'interviewed', zone: 'bridge', keyConnector: true,
+    role: 'Owner-Operated Retail · Key Connector',
+    desc: 'Independently owned and operated, actively pushing toward more local, quality-driven sourcing even at higher cost. Sits inside the large retail structure while redirecting resources toward local producers — a bridge, not a simple node.',
+    power: 'Operates within the large-chain structure while actively channeling sourcing toward local producers.' },
+  { id: 'frohnatur', name: 'FrohNatur Reppenstedt', sphere: 'retail', status: 'interviewed',
+    role: 'Alternative Unpackaged Retail',
+    desc: 'Agile zero-waste grocery shop sourcing directly from local dairies, cheesemakers, and bakers. Its supplier network functions well informally but lacks any institutional backbone.' },
+  { id: 'brauhaus_nolte', name: 'Brauhaus Nolte', sphere: 'retail', status: 'interviewed',
+    role: 'Sustainable Brewery & Restaurant',
+    desc: 'A long-standing family institution built on organic brewing and highly localized, trusted supply partnerships, sustained almost entirely on personal trust rather than contracts.' },
+  { id: 'viscvle', name: 'Viscvle Kitchen & Bar', sphere: 'retail', status: 'interviewed',
+    role: 'Premium Raw-Ingredient Gastronomy',
+    desc: 'Cooks entirely from scratch and wants to source regionally, but lost two to three local producers after a street redesign made deliveries physically difficult.' },
+  { id: 'pons_bar', name: 'Pons Bar & Bistro', sphere: 'retail', status: 'interviewed',
+    role: 'Central Dining Gastronomy',
+    desc: 'A waterfront bistro navigating thin margins; willing to buy bio-regional produce but contends with recurring delivery and parking-enforcement friction.' },
+  { id: 'maelzer', name: 'Mälzer', sphere: 'retail', status: 'interviewed',
+    role: 'Restaurant & Retail Buyer',
+    desc: 'Sources predominantly through large wholesale distribution; only one consistently active local producer tie. Contrasts next-day wholesale delivery with the irregular supply local producers can offer.' },
+  { id: 'verein_luneburger_gastronomen', name: 'Verein Lüneburger Gastronomen', sphere: 'retail',
+    role: 'Gastronomy Association (Underused)',
+    desc: 'A formal association of local restaurateurs, named by several restaurants but described as practically inactive for sourcing coordination — an existing structure that currently does little.' },
+  { id: 'large_chain', name: 'Large Supermarket Chains & Wholesale', sphere: 'retail', zone: 'large',
+    role: 'Conventional Retail & Distribution',
+    desc: 'Three entities sit inside this group, each with a distinct role. Conventional Corporate Retail (REWE/EDEKA Central) sets price floors through centralized buying contracts. Handelshof, now Edeka-owned, is the wholesale anchor named in every restaurant interview, acting as a soft intermediary that surfaces regional products through in-store tastings. Transgourmet offers broader volume and next-day reliability with less regional specificity.',
+    power: 'Sets the price and delivery standard that irregular local supply structurally cannot match.' },
+
+  // ---- AGRICULTURAL PRODUCERS ----
+  { id: 'hof_koch', name: 'Hof Koch', sphere: 'agri', status: 'interviewed',
+    role: 'Diversified Direct-Marketing Farm',
+    desc: 'A 45-year presence at the Lüneburg weekly market; highly diversified across potatoes, grain, eggs, bread, and greenhouse vegetables. Supermarket contracts can undercut its own cost of production on shared product lines.' },
+  { id: 'bio_roland', name: 'Bio Roland', sphere: 'agri', status: 'interviewed',
+    role: 'Independent Fruit & Vegetable Vendor',
+    desc: 'A long-standing weekly-market vendor and former grower, 20-25 years in the trade, also supplying fruit to local school facilities. Manages sourcing personally across wholesalers and nearby farms.' },
+  { id: 'wirgarten', name: 'WirGarten Lüneburg eG', sphere: 'agri', status: 'contacted',
+    role: 'Cooperative CSA Farm',
+    desc: 'A solidarity vegetable cooperative providing local agricultural shares directly to Lüneburg households. Contacted during outreach; not part of the coded interview analysis.' },
+  { id: 'market_vendors_association', name: 'Lüneburg Market Vendors Association', sphere: 'agri',
+    role: 'Vendor & Producer Association',
+    desc: 'The de facto broker between market vendors and city administration, though it functions in a limited capacity — communication with the city is regular but informal.' }
+];
+
+const LINKS = [
+  // ---- Active & Trusted ----
+  { source: 'stadt_lueneburg', target: 'wochenmarkt', type: 'trusted', desc: 'Operates and licenses the market through a small administrative team.' },
+  { source: 'hof_koch', target: 'wochenmarkt', type: 'trusted', desc: 'A 45-year core presence at the weekly market.' },
+  { source: 'bio_roland', target: 'wochenmarkt', type: 'trusted', desc: 'Sells at the weekly market; 20-25 years as a vendor.' },
+  { source: 'hof_koch', target: 'market_vendors_association', type: 'trusted', desc: 'Member since the association\'s founding.' },
+  { source: 'edeka_tschorn', target: 'hof_koch', type: 'trusted', desc: 'Direct purchasing relationship; owner-operated status bypasses corporate listing bottlenecks.' },
+  { source: 'edeka_tschorn', target: 'brauhaus_nolte', type: 'trusted', desc: 'Local supply partnership and mutual listing promotion.' },
+  { source: 'slow_food', target: 'brauhaus_nolte', type: 'trusted', desc: 'Collaborates on slow-food events, local sourcing advice, and menu curation.' },
+  { source: 'zukunftsrat', target: 'foodsharing', type: 'trusted', desc: 'Provides structural and organisational support to volunteer groups.' },
+  { source: 'brauhaus_nolte', target: 'campus_ev', type: 'trusted', desc: 'A personal contact with broad reach across multiple local sectors — not a formal food-system actor, but a potential broker node.' },
+
+  // ---- Missing but Plausible ----
+  { source: 'market_vendors_association', target: 'stadt_lueneburg', type: 'missing', desc: 'Functions as a de facto broker, but communication stays informal and limited rather than a structured channel — vendors remain underrepresented in city decision-making.' },
+  { source: 'maelzer', target: 'verein_luneburger_gastronomen', type: 'missing', desc: 'Named as a member, but the association is practically inactive for sourcing or logistics coordination.' },
+  { source: 'viscvle', target: 'verein_luneburger_gastronomen', type: 'missing', desc: 'Aware of the association, but it provides no active coordination support.' },
+  { source: 'pons_bar', target: 'verein_luneburger_gastronomen', type: 'missing', desc: 'A formally existing peer network that currently does little for its restaurant members.' },
+  { source: 'zukunftsrat', target: 'ernaehrungsrat', type: 'missing', desc: 'Seeks a funded coordinator to revive the dormant Food Council.' },
+  { source: 'stadt_lueneburg', target: 'biostadt_project', type: 'missing', desc: 'Civil society seeks reactivation of municipal organic-procurement guidelines.' },
+  { source: 'local_consumers', target: 'stadt_lueneburg', type: 'missing', desc: 'Demand for municipal protection of market space from excessive day-stall competition.' },
+  { source: 'frohnatur', target: 'naturparkregion', type: 'missing', desc: 'Requires consolidated regional transport to stay price-competitive.' },
+  { source: 'viscvle', target: 'naturparkregion', type: 'missing', desc: 'A consolidated regional delivery platform is wanted to avoid fragmented, single-farm deliveries.' },
+  { source: 'brauhaus_nolte', target: 'naturparkregion', type: 'missing', desc: 'Demand for centralized cold storage, washing, and distribution support.' },
+
+  // ---- Structural Pressure ----
+  { source: 'large_chain', target: 'hof_koch', type: 'pressure', desc: 'Downward price pressure restricts farm margins and undermines long-term viability.' },
+  { source: 'large_chain', target: 'frohnatur', type: 'pressure', desc: 'Aggressive volume pricing undercuts zero-waste alternatives.' },
+  { source: 'large_chain', target: 'maelzer', type: 'pressure', desc: 'Daily, reliable wholesale delivery sets a convenience standard that irregular local supply cannot match.' },
+
+  // ---- Commercial Transaction ----
+  { source: 'hof_koch', target: 'local_consumers', type: 'commercial', desc: 'Direct sales of bread, potatoes, and vegetables at the market and on-farm.' },
+  { source: 'bio_roland', target: 'local_consumers', type: 'commercial', desc: 'Direct fruit and vegetable sales at the weekly market.' },
+  { source: 'wirgarten', target: 'local_consumers', type: 'commercial', desc: 'Cooperative vegetable share contracts.' },
+  { source: 'frohnatur', target: 'local_consumers', type: 'commercial', desc: 'Zero-waste retail food sales.' },
+  { source: 'viscvle', target: 'local_consumers', type: 'commercial', desc: 'Raw, scratch-kitchen dining transactions.' },
+  { source: 'pons_bar', target: 'local_consumers', type: 'commercial', desc: 'Bistro food and beverage sales.' },
+  { source: 'edeka_tschorn', target: 'large_chain', type: 'commercial', desc: 'EDEKA central distribution remains the main channel for standard, non-local products.' },
+  { source: 'maelzer', target: 'large_chain', type: 'commercial', desc: 'Dominant sourcing channel via Handelshof and Transgourmet wholesale.' },
+  { source: 'viscvle', target: 'large_chain', type: 'commercial', desc: 'Used alongside direct producer relationships for product range and volume reliability.' },
+  { source: 'pons_bar', target: 'large_chain', type: 'commercial', desc: 'Handelshof\'s local base and wide selection reduce the logistics burden of sourcing many small farms individually.' },
+  { source: 'brauhaus_nolte', target: 'large_chain', type: 'commercial', desc: 'Used as a backup supply channel when direct producer relationships fall through.' }
+];
+
+document.getElementById('s-nodes').textContent = NODES.length;
+document.getElementById('s-links').textContent = LINKS.length;
+
+/* ---------- Network State ---------- */
+const degree = {};
+NODES.forEach(n => degree[n.id] = 0);
+LINKS.forEach(l => { degree[l.source]++; degree[l.target]++; });
+const maxDeg = Math.max(...Object.values(degree));
+
+/* ---------- Force-Directed Simulation (two-well zoning, wider canvas) ---------- */
+const W = 1180, H = 880;
+const WELL = {
+  large:  { x: W * 0.80, y: H * 0.32 },
+  bridge: { x: W * 0.54, y: H * 0.50 },
+  market: { x: W * 0.40, y: H * 0.62 },
+  local:  { x: W * 0.30, y: H * 0.60 }
+};
+function wellFor(n) { return WELL[n.zone] || WELL.local; }
+
+const nodes = NODES.map((n, i) => ({
+  ...n,
+  x: W/2 + Math.cos(i / NODES.length * Math.PI * 2) * 320 + (Math.random() - .5) * 50,
+  y: H/2 + Math.sin(i / NODES.length * Math.PI * 2) * 260 + (Math.random() - .5) * 50,
+  vx: 0, vy: 0
+}));
+const idx = Object.fromEntries(nodes.map((n, i) => [n.id, i]));
+const links = LINKS.map(l => ({ source: idx[l.source], target: idx[l.target], type: l.type, desc: l.desc }));
+
+const FORCE = { repulsion: 2600, spring: 0.022, desired: 220, gravity: 0.0075 };
+
+function labelHalfW(n) { return Math.max(70, n.name.length * 4.2 + 10); }
+function nodeR(n) { return Math.max(13, 11 + (degree[n.id] / maxDeg) * 26); }
+
+function tick() {
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j];
+      let dx = b.x - a.x, dy = b.y - a.y;
+      let d2 = dx * dx + dy * dy + 0.01, d = Math.sqrt(d2);
+      const f = FORCE.repulsion / d2;
+      const fx = dx / d * f, fy = dy / d * f;
+      a.vx -= fx; a.vy -= fy; b.vx += fx; b.vy += fy;
+    }
+  }
+  for (const l of links) {
+    const a = nodes[l.source], b = nodes[l.target];
+    let dx = b.x - a.x, dy = b.y - a.y, d = Math.sqrt(dx * dx + dy * dy) + 0.01;
+    const f = (d - FORCE.desired) * FORCE.spring;
+    const fx = dx / d * f, fy = dy / d * f;
+    a.vx += fx; a.vy += fy; b.vx -= fx; b.vy -= fy;
+  }
+  for (const n of nodes) {
+    const well = wellFor(n);
+    n.vx += (well.x - n.x) * FORCE.gravity;
+    n.vy += (well.y - n.y) * FORCE.gravity;
+    n.vx *= 0.8; n.vy *= 0.8;
+    n.x += n.vx; n.y += n.vy;
+    n.x = Math.max(80, Math.min(W - 80, n.x));
+    n.y = Math.max(100, Math.min(H - 80, n.y));
+  }
+  for (let pass = 0; pass < 3; pass++) {
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const aw = labelHalfW(a), bw = labelHalfW(b);
+        const ar = nodeR(a), br = nodeR(b);
+        const aTop = a.y - ar, aBot = a.y + ar + 20;
+        const bTop = b.y - br, bBot = b.y + br + 20;
+        const overlapX = (aw + bw + 16) - Math.abs(b.x - a.x);
+        const overlapY = Math.min(aBot, bBot) - Math.max(aTop, bTop);
+        if (overlapX > 0 && overlapY > 0) {
+          if (overlapX < overlapY) {
+            const push = (overlapX / 2 + 1) * Math.sign(b.x - a.x || 1);
+            a.x -= push; b.x += push;
+          } else {
+            const push = (overlapY / 2 + 1) * Math.sign(b.y - a.y || 1);
+            a.y -= push; b.y += push;
+          }
+        }
+      }
+    }
+  }
+}
+function settle(steps = 500) { for (let k = 0; k < steps; k++) tick(); }
+settle();
+
+/* ---------- Render ---------- */
+const svg = document.getElementById('graph');
+const NS = 'http://www.w3.org/2000/svg';
+const zoomG = document.createElementNS(NS, 'g');
+zoomG.id = 'zoomGroup';
+svg.appendChild(zoomG);
+const linkLayer = document.createElementNS(NS, 'g');
+const nodeLayer = document.createElementNS(NS, 'g');
+zoomG.appendChild(linkLayer); zoomG.appendChild(nodeLayer);
+
+const linkEls = links.map(() => {
+  const ln = document.createElementNS(NS, 'path');
+  ln.setAttribute('class', 'link');
+  linkLayer.appendChild(ln);
+  return ln;
+});
+
+const LABEL_THRESHOLD = 2; // nodes with degree >= this show label permanently
+
+const nodeEls = nodes.map((n) => {
+  const g = document.createElementNS(NS, 'g');
+  let cls = 'node';
+  if (n.dormant) cls += ' dormant';
+  if (n.keyConnector) cls += ' keyConnector';
+  if (degree[n.id] >= LABEL_THRESHOLD) cls += ' label-visible';
+  g.setAttribute('class', cls);
+  g.dataset.id = n.id;
+
+  const c = document.createElementNS(NS, 'circle');
+  g.appendChild(c);
+
+  if (n.keyConnector) {
+    const star = document.createElementNS(NS, 'text');
+    star.setAttribute('class', 'star');
+    star.setAttribute('text-anchor', 'middle');
+    star.setAttribute('dy', '0.35em');
+    star.textContent = '★';
+    g.appendChild(star);
+  }
+
+  const t = document.createElementNS(NS, 'text');
+  t.setAttribute('text-anchor', 'middle');
+  t.setAttribute('class', degree[n.id] >= LABEL_THRESHOLD ? '' : 'label-minor');
+  t.textContent = n.name;
+  g.appendChild(t);
+
+  nodeLayer.appendChild(g);
+  g.addEventListener('click', (e) => { e.stopPropagation(); select(n.id); });
+  g.addEventListener('mouseenter', () => g.classList.add('label-visible'));
+  g.addEventListener('mouseleave', () => { if (degree[n.id] < LABEL_THRESHOLD && selected !== n.id) g.classList.remove('label-visible'); });
+  return g;
+});
+
+function getVar(k) { return getComputedStyle(document.documentElement).getPropertyValue(k).trim(); }
+
+function restyleNodes() {
+  const ink = getVar('--ink');
+  const palette = { agri: getVar('--agri-color'), retail: getVar('--retail-color'), ngo: getVar('--ngo-color'), political: getVar('--political-color') };
+  const largeColor = getVar('--large-chain-color');
+  const marketColor = '#c9bfa3';
+
+  nodes.forEach((n, i) => {
+    const g = nodeEls[i];
+    const c = g.querySelector('circle');
+    const t = g.querySelector('text:last-child');
+    const r = nodeR(n);
+    c.setAttribute('r', r);
+    t.setAttribute('y', r + 17);
+
+    let fill = palette[n.sphere] || getVar('--bg');
+    if (n.zone === 'large') fill = largeColor;
+    if (n.zone === 'market') fill = marketColor;
+    c.setAttribute('fill', fill);
+    c.setAttribute('stroke', n.keyConnector ? getVar('--connector-color') : ink);
+    c.setAttribute('stroke-width', n.keyConnector ? '4' : '1.8');
+  });
+}
+
+function linkPath(a, b) {
+  const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+  const dx = b.x - a.x, dy = b.y - a.y;
+  const len = Math.sqrt(dx * dx + dy * dy) || 1;
+  const off = Math.min(34, len * 0.12);
+  const nx = -dy / len * off, ny = dx / len * off;
+  return `M${a.x},${a.y} Q${mx + nx},${my + ny} ${b.x},${b.y}`;
+}
+
+function position() {
+  links.forEach((l, i) => {
+    const a = nodes[l.source], b = nodes[l.target];
+    linkEls[i].setAttribute('d', linkPath(a, b));
+    linkEls[i].setAttribute('class', `link ${l.type}`);
+  });
+  nodes.forEach((n, i) => { nodeEls[i].setAttribute('transform', `translate(${n.x},${n.y})`); });
+}
+restyleNodes();
+position();
+
+/* ---------- Selection ---------- */
+let selected = null;
+function select(id) {
+  selected = id;
+  const connectedIds = new Set([id]);
+  const connectedLinks = new Set();
+  links.forEach((l, i) => {
+    const a = nodes[l.source].id, b = nodes[l.target].id;
+    if (a === id || b === id) { connectedIds.add(a); connectedIds.add(b); connectedLinks.add(i); }
+  });
+  nodeEls.forEach((g, i) => {
+    const nid = nodes[i].id;
+    g.classList.toggle('active', nid === id);
+    g.classList.toggle('dim', !connectedIds.has(nid));
+    if (connectedIds.has(nid)) g.classList.add('label-visible');
+    else if (degree[nid] < LABEL_THRESHOLD) g.classList.remove('label-visible');
+  });
+  linkEls.forEach((ln, i) => {
+    ln.classList.toggle('active', connectedLinks.has(i));
+    ln.classList.toggle('dim', !connectedLinks.has(i));
+  });
+  renderPanel(id);
+}
+function clearSelect() {
+  selected = null;
+  nodeEls.forEach((g, i) => {
+    g.classList.remove('active', 'dim');
+    if (degree[nodes[i].id] < LABEL_THRESHOLD) g.classList.remove('label-visible');
+  });
+  linkEls.forEach(l => l.classList.remove('active', 'dim'));
+  document.getElementById('panel-empty').style.display = '';
+  document.getElementById('panel-detail').style.display = 'none';
+}
+svg.addEventListener('click', clearSelect);
+
+const SPHERE_LABEL = { agri: 'Agricultural Producer', retail: 'Retail & Gastronomy', ngo: 'NGO / Civil Society', political: 'Political & Public Administration' };
+const REL_LABEL = { trusted: 'Active & Trusted', missing: 'Missing but Plausible', pressure: 'Structural Pressure', commercial: 'Commercial Transaction' };
+const STATUS_LABEL = { interviewed: 'Interviewed', contacted: 'Contacted, not coded', dormant: 'Inactive' };
+const STATUS_COLOR = { interviewed: '#1b8a5a', contacted: '#9a8c6a', dormant: '#9ca3af' };
+
+// Specific entities folded into the consolidated large_chain node
+const LARGE_CHAIN_ENTITIES = [
+  { name: 'Conventional Corporate Retail (REWE/EDEKA Central)', role: 'Central Buying Group', desc: 'Sets price floors through long-term contracts that local producers and retailers structurally cannot match.' },
+  { name: 'Handelshof', role: 'Wholesale Distributor (Edeka-owned)', desc: 'Named in every restaurant interview as the primary wholesale anchor. Acts as a soft intermediary, surfacing regional products through tastings and notes.' },
+  { name: 'Transgourmet', role: 'Wholesale Distributor', desc: 'Hamburg-based; offers broader product volume and reliable next-day delivery, with fewer regional products than Handelshof.' }
+];
+
+function renderPanel(id) {
+  const node = nodes.find(n => n.id === id);
+  const rels = [];
+  links.forEach(l => {
+    const a = nodes[l.source], b = nodes[l.target];
+    if (a.id === id) rels.push({ other: b, type: l.type, desc: l.desc });
+    else if (b.id === id) rels.push({ other: a, type: l.type, desc: l.desc });
+  });
+
+  const det = document.getElementById('panel-detail');
+  let sphereLabel = SPHERE_LABEL[node.sphere];
+  let sphereColor = getVar(`--${node.sphere}-color`);
+  if (node.zone === 'large') { sphereLabel = 'Large Chain / Wholesale'; sphereColor = getVar('--large-chain-color'); }
+  if (node.zone === 'market') { sphereLabel = 'Market Venue'; sphereColor = '#c9bfa3'; }
+
+  let badges = '';
+  if (node.status || node.dormant) {
+    const st = node.status || 'dormant';
+    const stCol = STATUS_COLOR[st];
+    badges += `<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px;">
+      <span style="display:inline-flex;align-items:center;padding:6px 15px;border-radius:999px;background:${stCol}18;border:1.5px solid ${stCol};font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${stCol}">${STATUS_LABEL[st]}</span>`;
+    if (node.keyConnector) badges += `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ Key Connector</span>`;
+    badges += `</div>`;
+  } else if (node.keyConnector) {
+    badges = `<div style="margin:8px 0 12px;"><span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ Key Connector</span></div>`;
+  }
+
+  const powerHTML = node.power ? `<div style="margin:6px 0 16px;padding:12px 16px;background:var(--accent-soft);border-radius:12px;font-size:14px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">Perceived power:</strong> ${node.power}</div>` : '';
+
+  let entitiesHTML = '';
+  if (node.id === 'large_chain') {
+    entitiesHTML = `<div class="section-label">Specific Entities</div>` + LARGE_CHAIN_ENTITIES.map(e => `
+      <div class="entity-card">
+        <div class="entity-name">${e.name}</div>
+        <div class="entity-role">${e.role}</div>
+        <div class="entity-desc">${e.desc}</div>
+      </div>`).join('');
+  }
+
+  det.innerHTML = `
+    <div class="cat" style="color:${sphereColor};font-weight:700;">${sphereLabel}</div>
+    <h2>${node.name}</h2>
+    <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--ink-2);margin-bottom:2px;">${node.role}</div>
+    ${badges}
+    <p class="sub">${node.desc}</p>
+    ${powerHTML}
+    ${entitiesHTML}
+    <div class="section-label">Connections (${rels.length})</div>
+    <ul>
+      ${rels.map(r => `
+        <li data-id="${r.other.id}">
+          <div class="partner-row">
+            <span class="partner-name">${r.other.name}</span>
+            <span class="rel-badge ${r.type}">${REL_LABEL[r.type]}</span>
+          </div>
+          <div class="rel-desc">"${r.desc}"</div>
+        </li>
+      `).join('')}
+    </ul>
+    <button class="clear" id="clearBtn">← back to overview</button>
+  `;
+  det.style.display = '';
+  document.getElementById('panel-empty').style.display = 'none';
+  det.querySelectorAll('li').forEach(li => li.addEventListener('click', (e) => { e.stopPropagation(); select(li.dataset.id); }));
+  document.getElementById('clearBtn').addEventListener('click', clearSelect);
+}
+
+/* ---------- Sector filters ---------- */
+const sfButtons = document.querySelectorAll('.sf-btn');
+sfButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    sfButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const s = btn.dataset.s;
+    nodeEls.forEach((g, i) => {
+      const n = nodes[i];
+      const match = s === 'all' || n.sphere === s || n.zone === 'large' && s === 'retail';
+      g.classList.toggle('faded', !match);
+    });
+    linkEls.forEach((ln, i) => {
+      const l = links[i];
+      const a = nodes[l.source], b = nodes[l.target];
+      const match = s === 'all' || (a.sphere === s || a.zone === 'large' && s === 'retail') && (b.sphere === s || b.zone === 'large' && s === 'retail');
+      ln.classList.toggle('faded', !match);
+    });
+  });
+});
+
+/* ---------- Search ---------- */
+const searchBox = document.getElementById('searchBox');
+const searchResults = document.getElementById('searchResults');
+searchBox.addEventListener('input', () => {
+  const q = searchBox.value.trim().toLowerCase();
+  if (!q) { searchResults.classList.remove('open'); searchResults.innerHTML = ''; return; }
+  const matches = nodes.filter(n => n.name.toLowerCase().includes(q));
+  if (!matches.length) { searchResults.innerHTML = '<div class="search-result-item" style="color:var(--ink-2);">No matches</div>'; searchResults.classList.add('open'); return; }
+  searchResults.innerHTML = matches.map(n => `<div class="search-result-item" data-id="${n.id}"><span style="width:9px;height:9px;border-radius:50%;background:${n.zone==='large'?getVar('--large-chain-color'):getVar('--'+n.sphere+'-color')};display:inline-block;"></span>${n.name}</div>`).join('');
+  searchResults.classList.add('open');
+  searchResults.querySelectorAll('.search-result-item').forEach(el => {
+    el.addEventListener('click', () => {
+      if (el.dataset.id) { select(el.dataset.id); searchBox.value = ''; searchResults.classList.remove('open'); }
+    });
+  });
+});
+searchBox.addEventListener('focus', () => { if (searchResults.innerHTML) searchResults.classList.add('open'); });
+document.addEventListener('click', (e) => { if (!e.target.closest('.search-wrap')) searchResults.classList.remove('open'); });
+
+/* ---------- Drag individual nodes ---------- */
+let drag = null;
+nodeEls.forEach((g, i) => { g.addEventListener('mousedown', (e) => { drag = { i }; e.preventDefault(); }); });
+svg.addEventListener('mousemove', (e) => {
+  if (!drag) return;
+  const pt = svg.createSVGPoint(); pt.x = e.clientX; pt.y = e.clientY;
+  const p = pt.matrixTransform(svg.getScreenCTM().inverse());
+  const n = nodes[drag.i];
+  n.x = p.x; n.y = p.y; n.vx = 0; n.vy = 0;
+  for (let k = 0; k < 4; k++) tick();
+  position();
+});
+
+/* ---------- Zoom & Pan ---------- */
+let zScale = 1, zX = 0, zY = 0;
+function applyZoom() { zoomG.setAttribute('transform', `translate(${zX},${zY}) scale(${zScale})`); }
+svg.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const rect = svg.getBoundingClientRect();
+  const mx = (e.clientX - rect.left - zX) / zScale;
+  const my = (e.clientY - rect.top  - zY) / zScale;
+  const factor = e.deltaY > 0 ? 0.85 : 1.18;
+  zScale = Math.max(0.2, Math.min(6, zScale * factor));
+  zX = e.clientX - rect.left - mx * zScale;
+  zY = e.clientY - rect.top  - my * zScale;
+  applyZoom();
+}, { passive: false });
+document.getElementById('btn-zoom-in').addEventListener('click', () => { zScale = Math.min(6, zScale * 1.3); applyZoom(); });
+document.getElementById('btn-zoom-out').addEventListener('click', () => { zScale = Math.max(0.2, zScale / 1.3); applyZoom(); });
+document.getElementById('btn-zoom-reset').addEventListener('click', () => { zScale = 1; zX = 0; zY = 0; applyZoom(); });
+
+let panStart = null;
+svg.addEventListener('mousedown', (e) => {
+  if (e.target === svg || e.target.id === 'zoomGroup') { panStart = { mx: e.clientX, my: e.clientY, ox: zX, oy: zY }; svg.style.cursor = 'grabbing'; }
+});
+svg.addEventListener('mousemove', (e) => {
+  if (panStart && !drag) { zX = panStart.ox + (e.clientX - panStart.mx); zY = panStart.oy + (e.clientY - panStart.my); applyZoom(); }
+});
+window.addEventListener('mouseup', () => { panStart = null; drag = null; svg.style.cursor = ''; });
+</script>
+</body>
+</html>
