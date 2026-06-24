@@ -11,23 +11,27 @@
   :root {
     --bg: #f7f4ec; --ink: #1a1a1a; --ink-2: #5a5448; --line: #e3ddcd;
     --accent: oklch(0.45 0.12 35); --accent-soft: oklch(0.94 0.04 35);
-    --agri-color: oklch(0.62 0.13 145); --retail-color: oklch(0.60 0.12 240);
-    --ngo-color: oklch(0.74 0.13 55); --political-color: oklch(0.55 0.16 25);
-    --large-chain-color: oklch(0.65 0.01 240);
+    --agri-color: oklch(0.58 0.14 150); --retail-color: oklch(0.54 0.13 248);
+    --ngo-color: oklch(0.68 0.15 62); --political-color: oklch(0.52 0.18 24);
+    --large-chain-color: oklch(0.42 0.025 250);
     --serif: 'Inter', system-ui, sans-serif; --display: 'Fraunces', Georgia, serif;
-    --trusted-color: #1b8a5a; --missing-color: #dc2626; --pressure-color: #8b5cf6;
-    --commercial-color: #9ca3af; --connector-color: #d97706;
+    --trusted-color: #0e897a; --missing-color: #e0392b; --pressure-color: #6d3bd4;
+    --commercial-color: #8a7c64; --connector-color: #d97706; --reach-color: #5a6b80;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: var(--serif); -webkit-font-smoothing: antialiased; }
   header h1, aside h2 { font-family: var(--display); font-weight: 500; letter-spacing: -.015em; }
-  .app { display: grid; grid-template-columns: 1fr 420px; height: 100vh; }
+  .app { display: block; height: 100vh; }
+  .mapwrap { position: relative; overflow: hidden; width: 100vw; height: 100vh; }
 
-  header { position: absolute; top: 26px; left: 36px; z-index: 5; max-width: 600px; pointer-events: none; }
+  header { position: absolute; top: 26px; left: 36px; z-index: 5; max-width: 540px; pointer-events: none; }
   header * { pointer-events: auto; }
   header .eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; font-weight: 700; }
-  header h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -.02em; }
-  header p { font-size: 16px; color: var(--ink-2); margin: 0; line-height: 1.5; }
+  header h1 { font-size: 30px; margin: 0 0 8px; letter-spacing: -.02em; }
+  header p { font-size: 15px; color: var(--ink-2); margin: 0; line-height: 1.5; max-width: 440px; }
+  .statchip { display: flex; gap: 18px; margin-top: 16px; font-size: 14px; color: var(--ink-2); }
+  .statchip b { font-family: var(--display); font-size: 22px; font-weight: 600; color: var(--ink); margin-right: 5px; }
+  .maphint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 4; font-size: 13px; color: var(--ink-2); opacity: .7; pointer-events: none; letter-spacing: .01em; }
 
   .legend {
     position: absolute; bottom: 26px; left: 36px;
@@ -47,7 +51,15 @@
   .leg-divider { height: 1px; background: var(--line); margin: 2px 0; }
 
   /* Sector filter toggles */
-  .sector-filters { position: absolute; top: 26px; right: 26px; z-index: 6; display: flex; gap: 8px; }
+  .sector-filters { position: absolute; top: 26px; right: 26px; z-index: 6; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; max-width: 62vw; }
+  .sf-sep { width: 1px; height: 22px; background: var(--line); margin: 0 2px; }
+  .lang-toggle { display: flex; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); }
+  .lang-btn { font-family: var(--serif); font-size: 13px; font-weight: 700; padding: 8px 15px; border: none; background: transparent; color: var(--ink-2); cursor: pointer; letter-spacing: .05em; }
+  .lang-btn.active { background: var(--accent); color: #fff; }
+  .ref-toggle { font-family: var(--serif); font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px; border: 1.5px solid var(--accent); background: var(--accent-soft); color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 7px; }
+  .ref-toggle .dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px dashed var(--accent); }
+  body.hide-ref .ref-toggle { background: color-mix(in oklab, var(--bg) 88%, transparent); border-color: var(--line); color: var(--ink-2); }
+  body.hide-ref .ref-toggle .dot { border-color: var(--ink-2); }
   .sf-btn { font-family: var(--serif); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); cursor: pointer; color: var(--ink-2); transition: all .15s; }
   .sf-btn.active { color: #fff; border-color: transparent; }
   .sf-btn[data-s="agri"].active { background: var(--agri-color); }
@@ -57,7 +69,7 @@
   .sf-btn[data-s="all"].active { background: var(--ink); }
 
   /* Search bar, bottom center */
-  .search-wrap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; width: 360px; }
+  .search-wrap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; width: 320px; }
   .search-box { width: 100%; padding: 13px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(10px); font-family: var(--serif); font-size: 15px; color: var(--ink); outline: none; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
   .search-box::placeholder { color: var(--ink-2); }
   .search-results { position: absolute; bottom: calc(100% + 8px); left: 0; right: 0; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 8px 28px rgba(0,0,0,.12); overflow: hidden; display: none; max-height: 260px; overflow-y: auto; }
@@ -65,8 +77,11 @@
   .search-result-item { padding: 11px 18px; font-size: 14.5px; cursor: pointer; display: flex; align-items: center; gap: 9px; }
   .search-result-item:hover { background: var(--accent-soft); }
 
-  aside { background: #fff; border-left: 1px solid var(--line); padding: 32px 28px; overflow-y: auto; }
-  aside h2 { font-size: 25px; margin: 4px 0 5px; }
+  aside { position: fixed; top: 0; right: 0; width: 440px; max-width: 92vw; height: 100vh; background: #fff; border-left: 1px solid var(--line); padding: 30px 30px 44px; overflow-y: auto; z-index: 30; transform: translateX(106%); transition: transform .34s cubic-bezier(.4,0,.1,1); box-shadow: -18px 0 50px rgba(0,0,0,.10); }
+  body.drawer-open aside { transform: none; }
+  .drawer-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--ink-2); font-size: 17px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
+  .drawer-close:hover { background: var(--accent-soft); color: var(--ink); }
+  aside h2 { font-size: 25px; margin: 4px 36px 5px 0; }
   aside .cat { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
   aside .sub { font-size: 16px; color: var(--ink-2); line-height: 1.6; margin: 10px 0; }
   aside .section-label { font-size: 12.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin: 20px 0 10px; border-top: 1px solid var(--line); padding-top: 16px; }
@@ -80,6 +95,7 @@
   .rel-badge.missing { background: #dc262622; color: #dc2626; }
   .rel-badge.pressure { background: #8b5cf622; color: #8b5cf6; }
   .rel-badge.commercial { background: #9ca3af33; color: #6b7280; }
+  .rel-badge.reference { background: var(--accent-soft); color: var(--accent); }
   .rel-desc { font-size: 14px; color: var(--ink-2); line-height: 1.5; font-style: italic; }
   .clear { margin-top: 20px; background: none; border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; font-size: 14.5px; cursor: pointer; color: var(--ink-2); }
   .clear:hover { background: var(--accent-soft); }
@@ -101,20 +117,25 @@
   .node .label-minor { opacity: 0; transition: opacity .15s; }
   .node.label-visible .label-minor { opacity: 1; }
   .node.dim circle, .node.dim text { opacity: .12; }
-  .node.faded circle, .node.faded text { opacity: .08; }
+  .node.faded circle, .node.faded text { opacity: .07; }
   .node.active circle { stroke-width: 4; }
   .node.keyConnector circle { stroke: var(--connector-color) !important; stroke-width: 4; }
   .node.keyConnector .star { font-size: 16px; fill: var(--connector-color); }
   .node.dormant circle { stroke-dasharray: 6,3; opacity: .7; }
   .node.dormant text { opacity: .6; }
+  .node .reach-ring { fill: none; stroke: var(--reach-color); stroke-width: 2.5; stroke-dasharray: 3,3; opacity: .85; pointer-events: none; }
+  .node.reference circle { stroke-dasharray: 4,3; stroke: var(--accent); stroke-width: 2; }
+  body.hide-ref .node.reference, body.hide-ref .link.reference { display: none; }
 
-  .link { fill: none; stroke-width: 2; transition: opacity .2s; }
-  .link.trusted { stroke: var(--trusted-color); }
-  .link.commercial { stroke: var(--commercial-color); }
-  .link.pressure { stroke: var(--pressure-color); stroke-width: 2.8; }
-  .link.missing { stroke: var(--missing-color); stroke-dasharray: 5,5; stroke-width: 1.8; }
+  .link { fill: none; stroke-width: 2.2; transition: opacity .2s; }
+  .link.trusted { stroke: var(--trusted-color); stroke-width: 2.4; }
+  .link.commercial { stroke: var(--commercial-color); stroke-width: 2.4; }
+  .link.pressure { stroke: var(--pressure-color); stroke-width: 3; }
+  .link.missing { stroke: var(--missing-color); stroke-dasharray: 5,5; stroke-width: 2.1; }
+  .link.reference { stroke: var(--accent); stroke-dasharray: 2,5; stroke-width: 1.8; opacity: .65; }
   .link.dim { opacity: .06; }
-  .link.active { opacity: 1; stroke-width: 3.2; }
+  .link.faded { opacity: .05; }
+  .link.active { opacity: 1; stroke-width: 3.4; }
 
   .zoom-controls { position: absolute; bottom: 84px; right: 20px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
   .zoom-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); color: var(--ink-2); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: var(--serif); opacity: .75; }
@@ -124,19 +145,31 @@
 </head>
 <body>
 <div class="app">
-  <div style="position:relative;overflow:hidden;">
+  <div class="mapwrap">
     <header>
-      <div class="eyebrow">LÜNEFRESH · STAKEHOLDER RESEARCH</div>
-      <h1>Lüneburg Stakeholder Map</h1>
-      <p>An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.</p>
+      <div class="eyebrow" data-i18n="eyebrow">LÜNEFRESH · STAKEHOLDER RESEARCH</div>
+      <h1 data-i18n="title">Lüneburg Stakeholder Map</h1>
+      <p data-i18n="subtitle">An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.</p>
+      <div class="statchip">
+        <span><b id="s-nodes">0</b><span data-i18n="actors">Actors</span></span>
+        <span><b id="s-links">0</b><span data-i18n="relations">Relations</span></span>
+        <span><b>4</b><span data-i18n="sectors">Sectors</span></span>
+      </div>
     </header>
 
     <div class="sector-filters" id="sectorFilters">
-      <button class="sf-btn active" data-s="all">All</button>
-      <button class="sf-btn" data-s="agri">Agricultural</button>
-      <button class="sf-btn" data-s="retail">Retail &amp; Gastronomy</button>
-      <button class="sf-btn" data-s="ngo">NGOs &amp; Civil Society</button>
-      <button class="sf-btn" data-s="political">Political &amp; Public</button>
+      <div class="lang-toggle" id="langToggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="de">DE</button>
+      </div>
+      <span class="sf-sep"></span>
+      <button class="sf-btn active" data-s="all" data-i18n="fAll">All</button>
+      <button class="sf-btn" data-s="agri" data-i18n="fAgri">Agricultural</button>
+      <button class="sf-btn" data-s="retail" data-i18n="fRetail">Retail &amp; Gastronomy</button>
+      <button class="sf-btn" data-s="ngo" data-i18n="fNgo">NGOs &amp; Civil Society</button>
+      <button class="sf-btn" data-s="political" data-i18n="fPolitical">Political &amp; Public</button>
+      <span class="sf-sep"></span>
+      <button class="ref-toggle" id="refToggle"><span class="dot"></span><span data-i18n="benchmarks">Benchmarks</span></button>
     </div>
 
     <svg id="graph"></svg>
@@ -149,45 +182,41 @@
 
     <div class="legend">
       <div class="leg-section">
-        <div class="leg-title">Actor Sectors</div>
+        <div class="leg-title" data-i18n="legTitleSectors">Actor Sectors</div>
         <div class="leg-grid">
-          <div class="leg-row"><span class="leg-dot" style="background:var(--agri-color)"></span>Agricultural Producers</div>
-          <div class="leg-row"><span class="leg-dot" style="background:var(--retail-color)"></span>Retail &amp; Gastronomy</div>
-          <div class="leg-row"><span class="leg-dot" style="background:var(--ngo-color)"></span>NGOs &amp; Civil Society</div>
-          <div class="leg-row"><span class="leg-dot" style="background:var(--political-color)"></span>Political &amp; Public Admin.</div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--agri-color)"></span><span data-i18n="legAgri">Agricultural Producers</span></div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--retail-color)"></span><span data-i18n="legRetail">Retail &amp; Gastronomy</span></div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--ngo-color)"></span><span data-i18n="legNgo">NGOs &amp; Civil Society</span></div>
+          <div class="leg-row"><span class="leg-dot" style="background:var(--political-color)"></span><span data-i18n="legPolitical">Political &amp; Public Admin.</span></div>
         </div>
-        <div style="font-size:13px;color:var(--ink-2);margin-top:4px;"><span class="leg-dot" style="background:var(--large-chain-color);width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:6px;"></span>Grey = large supermarket chain / wholesale</div>
+        <div style="font-size:13px;color:var(--ink-2);margin-top:4px;"><span class="leg-dot" style="background:var(--large-chain-color);width:11px;height:11px;display:inline-block;vertical-align:middle;margin-right:6px;"></span><span data-i18n="legGrey">Grey = large supermarket chain / wholesale</span></div>
       </div>
       <div class="leg-divider"></div>
       <div class="leg-section">
-        <div class="leg-title">Relationships</div>
-        <div class="leg-row"><span class="leg-line" style="border-color:var(--trusted-color)"></span>Active &amp; Trusted</div>
-        <div class="leg-row"><span class="leg-line" style="border-color:var(--commercial-color)"></span>Commercial Transaction</div>
-        <div class="leg-row"><span class="leg-line" style="border-color:var(--pressure-color)"></span>Structural Pressure</div>
-        <div class="leg-row"><span class="leg-line dotted" style="border-color:var(--missing-color)"></span>Missing but Plausible</div>
+        <div class="leg-title" data-i18n="legTitleRel">Relationships</div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--trusted-color)"></span><span data-i18n="legTrusted">Active &amp; Trusted</span></div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--commercial-color)"></span><span data-i18n="legCommercial">Commercial Transaction</span></div>
+        <div class="leg-row"><span class="leg-line" style="border-color:var(--pressure-color)"></span><span data-i18n="legPressure">Structural Pressure</span></div>
+        <div class="leg-row"><span class="leg-line dotted" style="border-color:var(--missing-color)"></span><span data-i18n="legMissing">Missing but Recommended</span></div>
       </div>
       <div class="leg-divider"></div>
       <div class="leg-section">
-        <div class="leg-row"><span style="color:var(--connector-color);font-weight:700;font-size:16px;">★</span>Key Connector — bridges otherwise disconnected groups</div>
+        <div class="leg-row"><span style="color:var(--connector-color);font-weight:700;font-size:16px;">★</span><span data-i18n="legConnector">Key Connector — bridges otherwise disconnected groups</span></div>
+        <div class="leg-row"><span class="leg-dot" style="background:transparent;border:2px dashed var(--reach-color);"></span><span data-i18n="legReach">Active beyond Lüneburg (40 km+) — reach shown in panel</span></div>
+        <div class="leg-row"><span class="leg-dot" style="background:transparent;border:2px dashed var(--accent);"></span><span data-i18n="legBenchmark">External benchmark model (not interviewed)</span></div>
       </div>
     </div>
 
     <div class="search-wrap">
       <div class="search-results" id="searchResults"></div>
-      <input class="search-box" id="searchBox" type="text" placeholder="Search for an organization…" autocomplete="off">
+      <input class="search-box" id="searchBox" type="text" placeholder="Search for an organization…" data-i18n-ph="searchPh" autocomplete="off">
     </div>
-
-    <div class="zone-tag" id="largeChainTag" style="right:36px;">Large Chain</div>
   </div>
 
   <aside>
-    <div id="panel-empty">Click any actor to see their role, relationships, and what the research found. Drag the background to pan, scroll to zoom.</div>
+    <button class="drawer-close" id="drawerClose" title="Close">×</button>
+    <div id="panel-empty" style="display:none"></div>
     <div id="panel-detail" style="display:none"></div>
-    <div class="stat-row">
-      <div class="stat"><div class="n" id="s-nodes">0</div><div class="l">Actors</div></div>
-      <div class="stat"><div class="n" id="s-links">0</div><div class="l">Relations</div></div>
-      <div class="stat"><div class="n">4</div><div class="l">Sectors</div></div>
-    </div>
   </aside>
 </div>
 
@@ -204,9 +233,11 @@ const NODES = [
     desc: 'Manages all three Lüneburg markets through a small administrative team. Holds licensing and stand-allocation power, but has little active engagement with food producers or restaurants beyond market operations.',
     power: 'High formal authority over market licensing and regulation, but limited active engagement with local food actors.' },
   { id: 'naturparkregion', name: 'Naturparkregion Lüneburger Heide e.V.', sphere: 'political', status: 'contacted',
+    reach: 'regional', reachNote: 'Operates across the wider Lüneburger Heide region, well beyond the city boundary.',
     role: 'Regional Planning Association',
     desc: 'Focuses on sustainable regional development and rural-urban logistics. Contacted during outreach; not part of the coded interview analysis.' },
   { id: 'biostadt_project', name: 'Biostadt Project (Dormant)', sphere: 'political', dormant: true,
+    reach: 'national', reachNote: 'Mirrors the national Biostädte network of municipalities committed to organic public procurement.',
     role: 'Dormant Municipal Organic Platform',
     desc: 'A city policy initiative aimed at organic public procurement, ready to be reactivated. The city council could revive it unilaterally.',
     power: 'Dormant formal authority; reactivation requires only authority the city already holds.' },
@@ -216,6 +247,7 @@ const NODES = [
 
   // ---- NGOs & CIVIL SOCIETY ----
   { id: 'slow_food', name: 'Slow Food Lüneburg', sphere: 'ngo', status: 'interviewed', keyConnector: true,
+    reach: 'international', reachNote: 'Local chapter of Slow Food International — a movement active in 160+ countries. Its convening practices draw on a global playbook.',
     role: 'Food Movement NPO · Key Connector',
     desc: 'Creates spaces where producers, retailers, and consumers actually meet, using storytelling about seasonality and pricing. Doing institutional-level bridging work without an institution behind it.',
     power: 'Connects producers, retailers, and consumers informally; no formal institutional backing.' },
@@ -224,6 +256,7 @@ const NODES = [
     desc: 'Bridges city food-policy thinking and the day-to-day reality of farmers and retailers. Identified the dormant Ernährungsrat and school procurement policy as concrete opportunities.',
     power: 'Bridges city policy thinking and producer/retailer reality; identified reactivation opportunities the city hasn\'t yet used.' },
   { id: 'foodsharing', name: 'Foodsharing Lüneburg', sphere: 'ngo',
+    reach: 'national', reachNote: 'A node in the nationwide foodsharing.de network operating across Germany, Austria and Switzerland.',
     role: 'Grassroots Waste Reduction NPO',
     desc: 'An active voluntary network salvaging surplus food across local retail shops for around a decade.' },
   { id: 'campus_ev', name: 'Campus e.V. (Hof an den Teichen)', sphere: 'ngo',
@@ -233,6 +266,7 @@ const NODES = [
     role: 'Urban Consumer Base',
     desc: 'Driven by real environmental and social awareness, yet most purchases are still decided primarily on price.' },
   { id: 'ernaehrungsrat', name: 'Ernährungsrat (Dormant)', sphere: 'ngo', dormant: true,
+    reach: 'national', reachNote: 'Food Policy Councils exist in 80+ German cities — often launched through state or municipal initiatives elsewhere, a model Lüneburg could revive.',
     role: 'Dormant Food Policy Council',
     desc: 'Exists formally but is inactive due to volunteer fatigue and lack of a funded coordinator. Farmers have withdrawn, leaving production unrepresented in the system\'s only multi-stakeholder governance body.',
     power: 'Dormant formal authority — could be reactivated without creating any new institution.' },
@@ -273,11 +307,22 @@ const NODES = [
     role: 'Independent Fruit & Vegetable Vendor',
     desc: 'A long-standing weekly-market vendor and former grower, 20-25 years in the trade, also supplying fruit to local school facilities. Manages sourcing personally across wholesalers and nearby farms.' },
   { id: 'wirgarten', name: 'WirGarten Lüneburg eG', sphere: 'agri', status: 'contacted',
+    reach: 'national', reachNote: 'A local cooperative built on the WirGarten franchise model, replicated in several German cities.',
     role: 'Cooperative CSA Farm',
     desc: 'A solidarity vegetable cooperative providing local agricultural shares directly to Lüneburg households. Contacted during outreach; not part of the coded interview analysis.' },
   { id: 'market_vendors_association', name: 'Lüneburg Market Vendors Association', sphere: 'agri',
     role: 'Vendor & Producer Association',
-    desc: 'The de facto broker between market vendors and city administration, though it functions in a limited capacity — communication with the city is regular but informal.' }
+    desc: 'The de facto broker between market vendors and city administration, though it functions in a limited capacity — communication with the city is regular but informal.' },
+
+  // ---- EXTERNAL BENCHMARK MODELS (not interviewed · reference layer) ----
+  { id: 'meckschweizer', name: 'MeckSchweizer', sphere: 'reference', reference: true, zone: 'reference', reach: 'regional',
+    role: 'Regional Marketing & Sourcing Platform · Benchmark',
+    desc: 'An external benchmark from Mecklenburg-Vorpommern: a structured platform that markets and consolidates regional products for retail and gastronomy. Shown here as a model for the consolidating-bridge role currently missing in Lüneburg.',
+    reachNote: 'Operates region-wide in Mecklenburg-Vorpommern — included for comparison, not part of the Lüneburg interviews.' },
+  { id: 'nearbuy', name: 'Nearbuy', sphere: 'reference', reference: true, zone: 'reference', reach: 'national',
+    role: 'Digital B2B Sourcing Platform · Benchmark',
+    desc: 'An external benchmark: a digital B2B platform connecting regional producers directly with restaurants and retailers, handling ordering and logistics. Illustrates the consolidated regional-delivery layer several Lüneburg actors said they need.',
+    reachNote: 'Active across Germany — included for comparison, not part of the Lüneburg interviews.' }
 ];
 
 const LINKS = [
@@ -320,11 +365,17 @@ const LINKS = [
   { source: 'maelzer', target: 'large_chain', type: 'commercial', desc: 'Dominant sourcing channel via Handelshof and Transgourmet wholesale.' },
   { source: 'viscvle', target: 'large_chain', type: 'commercial', desc: 'Used alongside direct producer relationships for product range and volume reliability.' },
   { source: 'pons_bar', target: 'large_chain', type: 'commercial', desc: 'Handelshof\'s local base and wide selection reduce the logistics burden of sourcing many small farms individually.' },
-  { source: 'brauhaus_nolte', target: 'large_chain', type: 'commercial', desc: 'Used as a backup supply channel when direct producer relationships fall through.' }
+  { source: 'brauhaus_nolte', target: 'large_chain', type: 'commercial', desc: 'Used as a backup supply channel when direct producer relationships fall through.' },
+
+  // ---- External benchmark links (reference layer) ----
+  { source: 'nearbuy', target: 'viscvle', type: 'reference', desc: 'Benchmark: a platform like this would supply the consolidated regional sourcing Viscvle lost after the street redesign.' },
+  { source: 'nearbuy', target: 'naturparkregion', type: 'reference', desc: 'Benchmark: the kind of digital logistics layer the region currently lacks for consolidated delivery.' },
+  { source: 'meckschweizer', target: 'market_vendors_association', type: 'reference', desc: 'Benchmark: a structured regional-marketing body of the sort vendors currently approximate only informally.' },
+  { source: 'meckschweizer', target: 'frohnatur', type: 'reference', desc: 'Benchmark: consolidated regional supply that would let zero-waste retail stay price-competitive.' }
 ];
 
-document.getElementById('s-nodes').textContent = NODES.length;
-document.getElementById('s-links').textContent = LINKS.length;
+document.getElementById('s-nodes').textContent = NODES.filter(n => !n.reference).length;
+document.getElementById('s-links').textContent = LINKS.filter(l => l.type !== 'reference').length;
 
 /* ---------- Network State ---------- */
 const degree = {};
@@ -333,12 +384,13 @@ LINKS.forEach(l => { degree[l.source]++; degree[l.target]++; });
 const maxDeg = Math.max(...Object.values(degree));
 
 /* ---------- Force-Directed Simulation (two-well zoning, wider canvas) ---------- */
-const W = 1180, H = 880;
+const W = 1360, H = 980;
 const WELL = {
   large:  { x: W * 0.80, y: H * 0.32 },
   bridge: { x: W * 0.54, y: H * 0.50 },
   market: { x: W * 0.40, y: H * 0.62 },
-  local:  { x: W * 0.30, y: H * 0.60 }
+  local:  { x: W * 0.30, y: H * 0.60 },
+  reference: { x: W * 0.14, y: H * 0.22 }
 };
 function wellFor(n) { return WELL[n.zone] || WELL.local; }
 
@@ -351,7 +403,7 @@ const nodes = NODES.map((n, i) => ({
 const idx = Object.fromEntries(nodes.map((n, i) => [n.id, i]));
 const links = LINKS.map(l => ({ source: idx[l.source], target: idx[l.target], type: l.type, desc: l.desc }));
 
-const FORCE = { repulsion: 2600, spring: 0.022, desired: 220, gravity: 0.0075 };
+const FORCE = { repulsion: 3300, spring: 0.022, desired: 200, gravity: 0.0075 };
 
 function labelHalfW(n) { return Math.max(70, n.name.length * 4.2 + 10); }
 function nodeR(n) { return Math.max(13, 11 + (degree[n.id] / maxDeg) * 26); }
@@ -433,9 +485,16 @@ const nodeEls = nodes.map((n) => {
   let cls = 'node';
   if (n.dormant) cls += ' dormant';
   if (n.keyConnector) cls += ' keyConnector';
+  if (n.reference) cls += ' reference';
   if (degree[n.id] >= LABEL_THRESHOLD) cls += ' label-visible';
   g.setAttribute('class', cls);
   g.dataset.id = n.id;
+
+  if (n.reach && !n.reference) {
+    const ring = document.createElementNS(NS, 'circle');
+    ring.setAttribute('class', 'reach-ring');
+    g.appendChild(ring);
+  }
 
   const c = document.createElementNS(NS, 'circle');
   g.appendChild(c);
@@ -476,6 +535,8 @@ function restyleNodes() {
     const t = g.querySelector('text:last-child');
     const r = nodeR(n);
     c.setAttribute('r', r);
+    const ring = g.querySelector('.reach-ring');
+    if (ring) ring.setAttribute('r', r + 5);
     t.setAttribute('y', r + 17);
 
     let fill = palette[n.sphere] || getVar('--bg');
@@ -511,6 +572,7 @@ position();
 let selected = null;
 function select(id) {
   selected = id;
+  document.body.classList.add('drawer-open');
   const connectedIds = new Set([id]);
   const connectedLinks = new Set();
   links.forEach((l, i) => {
@@ -532,20 +594,53 @@ function select(id) {
 }
 function clearSelect() {
   selected = null;
+  document.body.classList.remove('drawer-open');
   nodeEls.forEach((g, i) => {
     g.classList.remove('active', 'dim');
     if (degree[nodes[i].id] < LABEL_THRESHOLD) g.classList.remove('label-visible');
   });
   linkEls.forEach(l => l.classList.remove('active', 'dim'));
-  document.getElementById('panel-empty').style.display = '';
+  document.getElementById('panel-empty').style.display = 'none';
   document.getElementById('panel-detail').style.display = 'none';
 }
 svg.addEventListener('click', clearSelect);
 
-const SPHERE_LABEL = { agri: 'Agricultural Producer', retail: 'Retail & Gastronomy', ngo: 'NGO / Civil Society', political: 'Political & Public Administration' };
-const REL_LABEL = { trusted: 'Active & Trusted', missing: 'Missing but Plausible', pressure: 'Structural Pressure', commercial: 'Commercial Transaction' };
-const STATUS_LABEL = { interviewed: 'Interviewed', contacted: 'Contacted, not coded', dormant: 'Inactive' };
+let lang = 'en';
+const SPHERE_LABEL_EN = { agri: 'Agricultural Producer', retail: 'Retail & Gastronomy', ngo: 'NGO / Civil Society', political: 'Political & Public Administration' };
+const SPHERE_LABEL_DE = { agri: 'Landwirtschaftlicher Erzeuger', retail: 'Handel & Gastronomie', ngo: 'NGO / Zivilgesellschaft', political: 'Politik & Verwaltung' };
+const REL_LABEL_EN = { trusted: 'Active & Trusted', missing: 'Missing but Recommended', pressure: 'Structural Pressure', commercial: 'Commercial Transaction', reference: 'Benchmark Model' };
+const REL_LABEL_DE = { trusted: 'Aktiv & Vertrauensvoll', missing: 'Fehlend, aber empfohlen', pressure: 'Struktureller Druck', commercial: 'Kommerzielle Transaktion', reference: 'Vergleichsmodell' };
+const REACH_LABEL_EN = { regional: 'Regional reach (beyond Lüneburg)', national: 'National reach', international: 'International reach' };
+const REACH_LABEL_DE = { regional: 'Regionale Reichweite (über Lüneburg hinaus)', national: 'Nationale Reichweite', international: 'Internationale Reichweite' };
+const STATUS_LABEL_EN = { interviewed: 'Interviewed', contacted: 'Contacted, not coded', dormant: 'Inactive' };
+const STATUS_LABEL_DE = { interviewed: 'Interviewt', contacted: 'Kontaktiert, nicht codiert', dormant: 'Inaktiv' };
 const STATUS_COLOR = { interviewed: '#1b8a5a', contacted: '#9a8c6a', dormant: '#9ca3af' };
+const UI_EN = { largeChain: 'Large Chain / Wholesale', marketVenue: 'Market Venue', externalBenchmark: 'External Benchmark', keyConnector: 'Key Connector', perceivedPower: 'Perceived power:', specificEntities: 'Specific Entities', connections: 'Connections', back: '← back to overview' };
+const UI_DE = { largeChain: 'Große Kette / Großhandel', marketVenue: 'Marktstandort', externalBenchmark: 'Externes Vergleichsmodell', keyConnector: 'Schlüssel-Vermittler', perceivedPower: 'Wahrgenommene Macht:', specificEntities: 'Einzelne Akteure', connections: 'Verbindungen', back: '← zurück zur Übersicht' };
+let SPHERE_LABEL = SPHERE_LABEL_EN, REL_LABEL = REL_LABEL_EN, REACH_LABEL = REACH_LABEL_EN, STATUS_LABEL = STATUS_LABEL_EN, UI = UI_EN;
+
+// German names (only where they differ) and roles, for the lighter-pass translation
+const NAME_DE = {
+  wochenmarkt: 'Lüneburger Wochenmarkt', biostadt_project: 'Biostadt-Projekt (inaktiv)', ernaehrungsrat: 'Ernährungsrat (inaktiv)',
+  market_vendors_association: 'Marktbeschicker-Vereinigung Lüneburg', local_consumers: 'Lokale Verbraucher', large_chain: 'Große Supermarktketten & Großhandel'
+};
+const ROLE_DE = {
+  stadt_lueneburg: 'Stadtverwaltung', naturparkregion: 'Regionaler Planungsverband', biostadt_project: 'Inaktive städtische Bio-Plattform',
+  wochenmarkt: 'Marktstandort & Verkaufskanal', slow_food: 'Food-Bewegung (NPO) · Schlüssel-Vermittler', zukunftsrat: 'Bürger-Aktionsverein · Schlüssel-Vermittler',
+  foodsharing: 'Basisinitiative gegen Lebensmittelverschwendung (NPO)', campus_ev: 'Sozialunternehmen-Netzwerk', local_consumers: 'Städtische Verbraucherbasis',
+  ernaehrungsrat: 'Inaktiver Ernährungsrat', edeka_tschorn: 'Inhabergeführter Einzelhandel · Schlüssel-Vermittler', frohnatur: 'Alternativer Unverpackt-Laden',
+  brauhaus_nolte: 'Nachhaltige Brauerei & Restaurant', viscvle: 'Premium-Gastronomie mit frischen Zutaten', pons_bar: 'Zentrale Gastronomie',
+  maelzer: 'Restaurant- & Einzelhandels-Einkäufer', verein_luneburger_gastronomen: 'Gastronomie-Verein (kaum genutzt)', large_chain: 'Konventioneller Handel & Distribution',
+  hof_koch: 'Diversifizierter Direktvermarktungs-Hof', bio_roland: 'Unabhängiger Obst- & Gemüsehändler', wirgarten: 'Solidarische Landwirtschaft (Genossenschaft)',
+  market_vendors_association: 'Händler- & Erzeugervereinigung', meckschweizer: 'Regionale Vermarktungs- & Beschaffungsplattform · Benchmark', nearbuy: 'Digitale B2B-Beschaffungsplattform · Benchmark'
+};
+function dn(n) { return (lang === 'de' && NAME_DE[n.id]) ? NAME_DE[n.id] : n.name; }
+function dr(n) { return (lang === 'de' && ROLE_DE[n.id]) ? ROLE_DE[n.id] : n.role; }
+
+const STR = {
+  en: { eyebrow: 'LÜNEFRESH · STAKEHOLDER RESEARCH', title: 'Lüneburg Stakeholder Map', subtitle: "An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.", actors: 'Actors', relations: 'Relations', sectors: 'Sectors', fAll: 'All', fAgri: 'Agricultural', fRetail: 'Retail & Gastronomy', fNgo: 'NGOs & Civil Society', fPolitical: 'Political & Public', benchmarks: 'Benchmarks', searchPh: 'Search for an organization…', legTitleSectors: 'Actor Sectors', legAgri: 'Agricultural Producers', legRetail: 'Retail & Gastronomy', legNgo: 'NGOs & Civil Society', legPolitical: 'Political & Public Admin.', legGrey: 'Grey = large supermarket chain / wholesale', legTitleRel: 'Relationships', legTrusted: 'Active & Trusted', legCommercial: 'Commercial Transaction', legPressure: 'Structural Pressure', legMissing: 'Missing but Recommended', legConnector: 'Key Connector — bridges otherwise disconnected groups', legReach: 'Active beyond Lüneburg (40\u202fkm+) — reach shown in panel', legBenchmark: 'External benchmark model (not interviewed)' },
+  de: { eyebrow: 'LÜNEFRESH · STAKEHOLDER-ANALYSE', title: 'Lüneburg Stakeholder-Karte', subtitle: 'Eine interaktive Karte der wichtigsten Akteure im lokalen Lebensmittelsystem Lüneburgs – erstellt aus Stakeholder-Interviews und Netzwerkanalyse.', actors: 'Akteure', relations: 'Beziehungen', sectors: 'Sektoren', fAll: 'Alle', fAgri: 'Landwirtschaft', fRetail: 'Handel & Gastronomie', fNgo: 'NGOs & Zivilgesellschaft', fPolitical: 'Politik & Verwaltung', benchmarks: 'Benchmarks', searchPh: 'Organisation suchen…', legTitleSectors: 'Akteurs-Sektoren', legAgri: 'Landwirtschaftliche Erzeuger', legRetail: 'Handel & Gastronomie', legNgo: 'NGOs & Zivilgesellschaft', legPolitical: 'Politik & Verwaltung', legGrey: 'Grau = große Supermarktkette / Großhandel', legTitleRel: 'Beziehungen', legTrusted: 'Aktiv & Vertrauensvoll', legCommercial: 'Kommerzielle Transaktion', legPressure: 'Struktureller Druck', legMissing: 'Fehlend, aber empfohlen', legConnector: 'Schlüssel-Vermittler – verbindet sonst getrennte Gruppen', legReach: 'Aktiv über Lüneburg hinaus (40\u202fkm+) – Reichweite im Panel', legBenchmark: 'Externes Vergleichsmodell (nicht interviewt)' }
+};
 
 // Specific entities folded into the consolidated large_chain node
 const LARGE_CHAIN_ENTITIES = [
@@ -566,8 +661,9 @@ function renderPanel(id) {
   const det = document.getElementById('panel-detail');
   let sphereLabel = SPHERE_LABEL[node.sphere];
   let sphereColor = getVar(`--${node.sphere}-color`);
-  if (node.zone === 'large') { sphereLabel = 'Large Chain / Wholesale'; sphereColor = getVar('--large-chain-color'); }
-  if (node.zone === 'market') { sphereLabel = 'Market Venue'; sphereColor = '#c9bfa3'; }
+  if (node.zone === 'large') { sphereLabel = UI.largeChain; sphereColor = getVar('--large-chain-color'); }
+  if (node.zone === 'market') { sphereLabel = UI.marketVenue; sphereColor = '#c9bfa3'; }
+  if (node.reference) { sphereLabel = UI.externalBenchmark; sphereColor = getVar('--accent'); }
 
   let badges = '';
   if (node.status || node.dormant) {
@@ -575,17 +671,18 @@ function renderPanel(id) {
     const stCol = STATUS_COLOR[st];
     badges += `<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px;">
       <span style="display:inline-flex;align-items:center;padding:6px 15px;border-radius:999px;background:${stCol}18;border:1.5px solid ${stCol};font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${stCol}">${STATUS_LABEL[st]}</span>`;
-    if (node.keyConnector) badges += `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ Key Connector</span>`;
+    if (node.keyConnector) badges += `<span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ ${UI.keyConnector}</span>`;
     badges += `</div>`;
   } else if (node.keyConnector) {
-    badges = `<div style="margin:8px 0 12px;"><span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ Key Connector</span></div>`;
+    badges = `<div style="margin:8px 0 12px;"><span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ ${UI.keyConnector}</span></div>`;
   }
 
-  const powerHTML = node.power ? `<div style="margin:6px 0 16px;padding:12px 16px;background:var(--accent-soft);border-radius:12px;font-size:14px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">Perceived power:</strong> ${node.power}</div>` : '';
+  const powerHTML = node.power ? `<div style="margin:6px 0 16px;padding:12px 16px;background:var(--accent-soft);border-radius:12px;font-size:14px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${UI.perceivedPower}</strong> ${node.power}</div>` : '';
+  const reachHTML = node.reach ? `<div style="margin:6px 0 16px;padding:11px 15px;background:color-mix(in oklab, var(--reach-color) 11%, #fff);border:1px solid color-mix(in oklab, var(--reach-color) 32%, transparent);border-radius:12px;font-size:13.5px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${REACH_LABEL[node.reach]}.</strong> ${node.reachNote || ''}</div>` : '';
 
   let entitiesHTML = '';
   if (node.id === 'large_chain') {
-    entitiesHTML = `<div class="section-label">Specific Entities</div>` + LARGE_CHAIN_ENTITIES.map(e => `
+    entitiesHTML = `<div class="section-label">${UI.specificEntities}</div>` + LARGE_CHAIN_ENTITIES.map(e => `
       <div class="entity-card">
         <div class="entity-name">${e.name}</div>
         <div class="entity-role">${e.role}</div>
@@ -595,25 +692,26 @@ function renderPanel(id) {
 
   det.innerHTML = `
     <div class="cat" style="color:${sphereColor};font-weight:700;">${sphereLabel}</div>
-    <h2>${node.name}</h2>
-    <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--ink-2);margin-bottom:2px;">${node.role}</div>
+    <h2>${dn(node)}</h2>
+    <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--ink-2);margin-bottom:2px;">${dr(node)}</div>
     ${badges}
     <p class="sub">${node.desc}</p>
     ${powerHTML}
+    ${reachHTML}
     ${entitiesHTML}
-    <div class="section-label">Connections (${rels.length})</div>
+    <div class="section-label">${UI.connections} (${rels.length})</div>
     <ul>
       ${rels.map(r => `
         <li data-id="${r.other.id}">
           <div class="partner-row">
-            <span class="partner-name">${r.other.name}</span>
+            <span class="partner-name">${dn(r.other)}</span>
             <span class="rel-badge ${r.type}">${REL_LABEL[r.type]}</span>
           </div>
           <div class="rel-desc">"${r.desc}"</div>
         </li>
       `).join('')}
     </ul>
-    <button class="clear" id="clearBtn">← back to overview</button>
+    <button class="clear" id="clearBtn">${UI.back}</button>
   `;
   det.style.display = '';
   document.getElementById('panel-empty').style.display = 'none';
@@ -623,22 +721,46 @@ function renderPanel(id) {
 
 /* ---------- Sector filters ---------- */
 const sfButtons = document.querySelectorAll('.sf-btn');
+function inSector(n, s) { return n.sphere === s || (n.zone === 'large' && s === 'retail'); }
+function applyFilter(s) {
+  if (s === 'all') {
+    nodeEls.forEach((g, i) => {
+      g.classList.remove('faded');
+      const id = nodes[i].id;
+      if (degree[id] >= LABEL_THRESHOLD || selected === id) g.classList.add('label-visible');
+      else g.classList.remove('label-visible');
+    });
+    linkEls.forEach(ln => ln.classList.remove('faded'));
+    return;
+  }
+  const matched = new Set();
+  nodes.forEach(n => { if (inSector(n, s)) matched.add(n.id); });
+  const neighbor = new Set();
+  links.forEach(l => {
+    const a = nodes[l.source].id, b = nodes[l.target].id;
+    if (matched.has(a)) neighbor.add(b);
+    if (matched.has(b)) neighbor.add(a);
+  });
+  nodeEls.forEach((g, i) => {
+    const id = nodes[i].id;
+    const keep = matched.has(id) || neighbor.has(id);
+    g.classList.toggle('faded', !keep);
+    if (keep) g.classList.add('label-visible');
+    else if (degree[id] < LABEL_THRESHOLD) g.classList.remove('label-visible');
+  });
+  linkEls.forEach((ln, i) => {
+    const l = links[i];
+    const show = matched.has(nodes[l.source].id) || matched.has(nodes[l.target].id);
+    ln.classList.toggle('faded', !show);
+  });
+}
+let activeSector = 'all';
 sfButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     sfButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    const s = btn.dataset.s;
-    nodeEls.forEach((g, i) => {
-      const n = nodes[i];
-      const match = s === 'all' || n.sphere === s || n.zone === 'large' && s === 'retail';
-      g.classList.toggle('faded', !match);
-    });
-    linkEls.forEach((ln, i) => {
-      const l = links[i];
-      const a = nodes[l.source], b = nodes[l.target];
-      const match = s === 'all' || (a.sphere === s || a.zone === 'large' && s === 'retail') && (b.sphere === s || b.zone === 'large' && s === 'retail');
-      ln.classList.toggle('faded', !match);
-    });
+    activeSector = btn.dataset.s;
+    applyFilter(activeSector);
   });
 });
 
@@ -648,9 +770,9 @@ const searchResults = document.getElementById('searchResults');
 searchBox.addEventListener('input', () => {
   const q = searchBox.value.trim().toLowerCase();
   if (!q) { searchResults.classList.remove('open'); searchResults.innerHTML = ''; return; }
-  const matches = nodes.filter(n => n.name.toLowerCase().includes(q));
+  const matches = nodes.filter(n => dn(n).toLowerCase().includes(q) || n.name.toLowerCase().includes(q));
   if (!matches.length) { searchResults.innerHTML = '<div class="search-result-item" style="color:var(--ink-2);">No matches</div>'; searchResults.classList.add('open'); return; }
-  searchResults.innerHTML = matches.map(n => `<div class="search-result-item" data-id="${n.id}"><span style="width:9px;height:9px;border-radius:50%;background:${n.zone==='large'?getVar('--large-chain-color'):getVar('--'+n.sphere+'-color')};display:inline-block;"></span>${n.name}</div>`).join('');
+  searchResults.innerHTML = matches.map(n => `<div class="search-result-item" data-id="${n.id}"><span style="width:9px;height:9px;border-radius:50%;background:${n.reference?getVar('--accent'):n.zone==='large'?getVar('--large-chain-color'):getVar('--'+n.sphere+'-color')};display:inline-block;"></span>${dn(n)}</div>`).join('');
   searchResults.classList.add('open');
   searchResults.querySelectorAll('.search-result-item').forEach(el => {
     el.addEventListener('click', () => {
@@ -690,7 +812,7 @@ svg.addEventListener('wheel', (e) => {
 }, { passive: false });
 document.getElementById('btn-zoom-in').addEventListener('click', () => { zScale = Math.min(6, zScale * 1.3); applyZoom(); });
 document.getElementById('btn-zoom-out').addEventListener('click', () => { zScale = Math.max(0.2, zScale / 1.3); applyZoom(); });
-document.getElementById('btn-zoom-reset').addEventListener('click', () => { zScale = 1; zX = 0; zY = 0; applyZoom(); });
+document.getElementById('btn-zoom-reset').addEventListener('click', () => { fitToView(); });
 
 let panStart = null;
 svg.addEventListener('mousedown', (e) => {
@@ -700,6 +822,51 @@ svg.addEventListener('mousemove', (e) => {
   if (panStart && !drag) { zX = panStart.ox + (e.clientX - panStart.mx); zY = panStart.oy + (e.clientY - panStart.my); applyZoom(); }
 });
 window.addEventListener('mouseup', () => { panStart = null; drag = null; svg.style.cursor = ''; });
+
+/* ---------- Drawer & benchmark toggle ---------- */
+document.getElementById('drawerClose').addEventListener('click', clearSelect);
+const refToggle = document.getElementById('refToggle');
+refToggle.addEventListener('click', () => { document.body.classList.toggle('hide-ref'); fitToView(); });
+
+/* ---------- Fit to view ---------- */
+function fitToView() {
+  const hideRef = document.body.classList.contains('hide-ref');
+  const vis = nodes.filter(n => !(hideRef && n.reference));
+  let minX = 1e9, minY = 1e9, maxX = -1e9, maxY = -1e9;
+  vis.forEach(n => { const r = nodeR(n); minX = Math.min(minX, n.x - r - 70); maxX = Math.max(maxX, n.x + r + 70); minY = Math.min(minY, n.y - r - 26); maxY = Math.max(maxY, n.y + r + 36); });
+  const rect = svg.getBoundingClientRect();
+  const bw = Math.max(1, maxX - minX), bh = Math.max(1, maxY - minY);
+  // Reserve space for the header (top-left) and legend (bottom-left) so the graph never hides behind chrome
+  const insL = Math.min(380, rect.width * 0.26), insT = 140, insR = 70, insB = 116;
+  const availW = Math.max(120, rect.width - insL - insR);
+  const availH = Math.max(120, rect.height - insT - insB);
+  zScale = Math.min(availW / bw, availH / bh, 1.5);
+  zX = insL + (availW - bw * zScale) / 2 - minX * zScale;
+  zY = insT + (availH - bh * zScale) / 2 - minY * zScale;
+  applyZoom();
+}
+fitToView();
+window.addEventListener('resize', fitToView);
+
+/* ---------- Language toggle ---------- */
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (STR[lang][k] != null) el.textContent = STR[lang][k]; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { const k = el.dataset.i18nPh; if (STR[lang][k] != null) el.placeholder = STR[lang][k]; });
+  SPHERE_LABEL = lang === 'de' ? SPHERE_LABEL_DE : SPHERE_LABEL_EN;
+  REL_LABEL = lang === 'de' ? REL_LABEL_DE : REL_LABEL_EN;
+  REACH_LABEL = lang === 'de' ? REACH_LABEL_DE : REACH_LABEL_EN;
+  STATUS_LABEL = lang === 'de' ? STATUS_LABEL_DE : STATUS_LABEL_EN;
+  UI = lang === 'de' ? UI_DE : UI_EN;
+  nodes.forEach((n, i) => { const t = nodeEls[i].querySelector('text:last-child'); if (t) t.textContent = dn(n); });
+  document.documentElement.lang = lang;
+  if (selected) renderPanel(selected);
+}
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => {
+  if (b.dataset.lang === lang) return;
+  document.querySelectorAll('.lang-btn').forEach(x => x.classList.toggle('active', x === b));
+  lang = b.dataset.lang;
+  applyLang();
+}));
 </script>
 </body>
 </html>
