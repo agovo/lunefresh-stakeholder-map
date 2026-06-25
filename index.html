@@ -23,7 +23,6 @@
   header h1, aside h2 { font-family: var(--display); font-weight: 500; letter-spacing: -.015em; }
   .app { display: block; height: 100vh; }
   .mapwrap { position: relative; overflow: hidden; width: 100vw; height: 100vh; }
-
   header { position: absolute; top: 26px; left: 36px; z-index: 5; max-width: 540px; pointer-events: none; }
   header * { pointer-events: auto; }
   header .eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; font-weight: 700; }
@@ -32,7 +31,6 @@
   .statchip { display: flex; gap: 18px; margin-top: 16px; font-size: 14px; color: var(--ink-2); }
   .statchip b { font-family: var(--display); font-size: 22px; font-weight: 600; color: var(--ink); margin-right: 5px; }
   .maphint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 4; font-size: 13px; color: var(--ink-2); opacity: .7; pointer-events: none; letter-spacing: .01em; }
-
   .legend {
     position: absolute; bottom: 26px; left: 36px;
     display: flex; flex-direction: column; gap: 12px;
@@ -49,7 +47,6 @@
   .leg-line.dotted { border-top-style: dotted; border-top-width: 3px; }
   .leg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 16px; }
   .leg-divider { height: 1px; background: var(--line); margin: 2px 0; }
-
   /* Sector filter toggles */
   .sector-filters { position: absolute; top: 26px; right: 26px; z-index: 6; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; max-width: 62vw; }
   .sf-sep { width: 1px; height: 22px; background: var(--line); margin: 0 2px; }
@@ -67,7 +64,6 @@
   .sf-btn[data-s="ngo"].active { background: var(--ngo-color); }
   .sf-btn[data-s="political"].active { background: var(--political-color); }
   .sf-btn[data-s="all"].active { background: var(--ink); }
-
   /* Search bar, bottom center */
   .search-wrap { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); z-index: 6; width: 320px; }
   .search-box { width: 100%; padding: 13px 18px; border-radius: 999px; border: 1.5px solid var(--line); background: color-mix(in oklab, var(--bg) 94%, transparent); backdrop-filter: blur(10px); font-family: var(--serif); font-size: 15px; color: var(--ink); outline: none; box-shadow: 0 4px 18px rgba(0,0,0,.06); }
@@ -76,7 +72,6 @@
   .search-results.open { display: block; }
   .search-result-item { padding: 11px 18px; font-size: 14.5px; cursor: pointer; display: flex; align-items: center; gap: 9px; }
   .search-result-item:hover { background: var(--accent-soft); }
-
   aside { position: fixed; top: 0; right: 0; width: 440px; max-width: 92vw; height: 100vh; background: #fff; border-left: 1px solid var(--line); padding: 30px 30px 44px; overflow-y: auto; z-index: 30; transform: translateX(106%); transition: transform .34s cubic-bezier(.4,0,.1,1); box-shadow: -18px 0 50px rgba(0,0,0,.10); }
   body.drawer-open aside { transform: none; }
   .drawer-close { position: absolute; top: 16px; right: 16px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--ink-2); font-size: 17px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; }
@@ -100,20 +95,17 @@
   .clear { margin-top: 20px; background: none; border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; font-size: 14.5px; cursor: pointer; color: var(--ink-2); }
   .clear:hover { background: var(--accent-soft); }
   #panel-empty { color: var(--ink-2); font-size: 16px; line-height: 1.65; padding-top: 8px; }
-
   .entity-card { background: var(--accent-soft); border-radius: 12px; padding: 12px 16px; margin-bottom: 10px; }
   .entity-name { font-weight: 700; font-size: 14.5px; margin-bottom: 3px; }
   .entity-role { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); margin-bottom: 5px; font-weight: 600; }
   .entity-desc { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
-
   .stat-row { display: flex; gap: 0; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--line); }
   .stat { flex: 1; }
   .stat .n { font-family: var(--display); font-size: 30px; font-weight: 600; }
   .stat .l { font-size: 12px; color: var(--ink-2); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
-
   svg#graph { width: 100%; height: 100%; display: block; cursor: default; }
   .node circle { transition: opacity .2s; }
-  .node text { font-weight: 600; fill: var(--ink); pointer-events: none; text-shadow: 0 1px 3px var(--bg), 0 -1px 3px var(--bg), 1px 0 3px var(--bg), -1px 0 3px var(--bg); font-size: 15px; }
+  .node text { font-weight: 600; fill: var(--ink); pointer-events: none; text-shadow: 0 1px 3px var(--bg), 0 -1px 3px var(--bg), 1px 0 3px var(--bg), -1px 0 3px var(--bg); font-size: 17px; }
   .node .label-minor { opacity: 0; transition: opacity .15s; }
   .node.label-visible .label-minor { opacity: 1; }
   .node.dim circle, .node.dim text { opacity: .12; }
@@ -126,7 +118,6 @@
   .node .reach-ring { fill: none; stroke: var(--reach-color); stroke-width: 2.5; stroke-dasharray: 3,3; opacity: .85; pointer-events: none; }
   .node.reference circle { stroke-dasharray: 4,3; stroke: var(--accent); stroke-width: 2; }
   body.hide-ref .node.reference, body.hide-ref .link.reference { display: none; }
-
   .link { fill: none; stroke-width: 2.2; transition: opacity .2s; }
   .link.trusted { stroke: var(--trusted-color); stroke-width: 2.4; }
   .link.commercial { stroke: var(--commercial-color); stroke-width: 2.4; }
@@ -136,7 +127,6 @@
   .link.dim { opacity: .06; }
   .link.faded { opacity: .05; }
   .link.active { opacity: 1; stroke-width: 3.4; }
-
   .zoom-controls { position: absolute; bottom: 84px; right: 20px; display: flex; flex-direction: column; gap: 6px; z-index: 10; }
   .zoom-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter: blur(8px); color: var(--ink-2); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: var(--serif); opacity: .75; }
   .zoom-btn:hover { opacity: 1; background: var(--accent-soft); }
@@ -156,7 +146,6 @@
         <span><b>4</b><span data-i18n="sectors">Sectors</span></span>
       </div>
     </header>
-
     <div class="sector-filters" id="sectorFilters">
       <div class="lang-toggle" id="langToggle">
         <button class="lang-btn active" data-lang="en">EN</button>
@@ -171,15 +160,12 @@
       <span class="sf-sep"></span>
       <button class="ref-toggle" id="refToggle"><span class="dot"></span><span data-i18n="benchmarks">Benchmarks</span></button>
     </div>
-
     <svg id="graph"></svg>
-
     <div class="zoom-controls">
       <button class="zoom-btn" id="btn-zoom-in" title="Zoom in">+</button>
       <button class="zoom-btn" id="btn-zoom-reset" title="Reset">⊙</button>
       <button class="zoom-btn" id="btn-zoom-out" title="Zoom out">−</button>
     </div>
-
     <div class="legend">
       <div class="leg-section">
         <div class="leg-title" data-i18n="legTitleSectors">Actor Sectors</div>
@@ -202,24 +188,21 @@
       <div class="leg-divider"></div>
       <div class="leg-section">
         <div class="leg-row"><span style="color:var(--connector-color);font-weight:700;font-size:16px;">★</span><span data-i18n="legConnector">Key Connector — bridges otherwise disconnected groups</span></div>
-        <div class="leg-row"><span class="leg-dot" style="background:transparent;border:2px dashed var(--reach-color);"></span><span data-i18n="legReach">Active beyond Lüneburg (40 km+) — reach shown in panel</span></div>
+        <div class="leg-row"><span class="leg-dot" style="background:transparent;border:2px dashed var(--reach-color);"></span><span data-i18n="legReach">Active beyond Lüneburg (40 km+) — reach shown in panel</span></div>
         <div class="leg-row"><span class="leg-dot" style="background:transparent;border:2px dashed var(--accent);"></span><span data-i18n="legBenchmark">External benchmark model (not interviewed)</span></div>
       </div>
     </div>
-
     <div class="search-wrap">
       <div class="search-results" id="searchResults"></div>
       <input class="search-box" id="searchBox" type="text" placeholder="Search for an organization…" data-i18n-ph="searchPh" autocomplete="off">
     </div>
   </div>
-
   <aside>
     <button class="drawer-close" id="drawerClose" title="Close">×</button>
     <div id="panel-empty" style="display:none"></div>
     <div id="panel-detail" style="display:none"></div>
   </aside>
 </div>
-
 <script>
 // ===========================================================================
 // DATA — derived from the coded interview dataset (11 coded + 2 uncoded
@@ -244,7 +227,6 @@ const NODES = [
   { id: 'wochenmarkt', name: 'Lüneburg Weekly Market (Wochenmarkt)', sphere: 'political', zone: 'market',
     role: 'Market Venue & Sales Channel',
     desc: 'The city\'s weekly market, run by Stadt Lüneburg\'s small market-administration team. A central sales channel for several producers, though its opening hours are increasingly mismatched with modern shopping habits.' },
-
   // ---- NGOs & CIVIL SOCIETY ----
   { id: 'slow_food', name: 'Slow Food Lüneburg', sphere: 'ngo', status: 'interviewed', keyConnector: true,
     reach: 'international', reachNote: 'Local chapter of Slow Food International — a movement active in 160+ countries. Its convening practices draw on a global playbook.',
@@ -270,7 +252,6 @@ const NODES = [
     role: 'Dormant Food Policy Council',
     desc: 'Exists formally but is inactive due to volunteer fatigue and lack of a funded coordinator. Farmers have withdrawn, leaving production unrepresented in the system\'s only multi-stakeholder governance body.',
     power: 'Dormant formal authority — could be reactivated without creating any new institution.' },
-
   // ---- RETAIL & GASTRONOMY ----
   { id: 'edeka_tschorn', name: 'EDEKA Tschorn', sphere: 'retail', status: 'interviewed', zone: 'bridge', keyConnector: true,
     role: 'Owner-Operated Retail · Key Connector',
@@ -291,14 +272,13 @@ const NODES = [
   { id: 'maelzer', name: 'Mälzer', sphere: 'retail', status: 'interviewed',
     role: 'Restaurant & Retail Buyer',
     desc: 'Sources predominantly through large wholesale distribution; only one consistently active local producer tie. Contrasts next-day wholesale delivery with the irregular supply local producers can offer.' },
-  { id: 'verein_luneburger_gastronomen', name: 'Verein Lüneburger Gastronomen', sphere: 'retail',
+  { id: 'verein_luneburger_gastronomen', name: 'Verein Lüneburger Gastronomen', sphere: 'ngo',
     role: 'Gastronomy Association (Underused)',
     desc: 'A formal association of local restaurateurs, named by several restaurants but described as practically inactive for sourcing coordination — an existing structure that currently does little.' },
   { id: 'large_chain', name: 'Large Supermarket Chains & Wholesale', sphere: 'retail', zone: 'large',
     role: 'Conventional Retail & Distribution',
     desc: 'Three entities sit inside this group, each with a distinct role. Conventional Corporate Retail (REWE/EDEKA Central) sets price floors through centralized buying contracts. Handelshof, now Edeka-owned, is the wholesale anchor named in every restaurant interview, acting as a soft intermediary that surfaces regional products through in-store tastings. Transgourmet offers broader volume and next-day reliability with less regional specificity.',
     power: 'Sets the price and delivery standard that irregular local supply structurally cannot match.' },
-
   // ---- AGRICULTURAL PRODUCERS ----
   { id: 'hof_koch', name: 'Hof Koch', sphere: 'agri', status: 'interviewed',
     role: 'Diversified Direct-Marketing Farm',
@@ -313,7 +293,6 @@ const NODES = [
   { id: 'market_vendors_association', name: 'Lüneburg Market Vendors Association', sphere: 'agri',
     role: 'Vendor & Producer Association',
     desc: 'The de facto broker between market vendors and city administration, though it functions in a limited capacity — communication with the city is regular but informal.' },
-
   // ---- EXTERNAL BENCHMARK MODELS (not interviewed · reference layer) ----
   { id: 'meckschweizer', name: 'MeckSchweizer', sphere: 'reference', reference: true, zone: 'reference', reach: 'regional',
     role: 'Regional Marketing & Sourcing Platform · Benchmark',
@@ -324,7 +303,6 @@ const NODES = [
     desc: 'An external benchmark: a digital B2B platform connecting regional producers directly with restaurants and retailers, handling ordering and logistics. Illustrates the consolidated regional-delivery layer several Lüneburg actors said they need.',
     reachNote: 'Active across Germany — included for comparison, not part of the Lüneburg interviews.' }
 ];
-
 const LINKS = [
   // ---- Active & Trusted ----
   { source: 'stadt_lueneburg', target: 'wochenmarkt', type: 'trusted', desc: 'Operates and licenses the market through a small administrative team.' },
@@ -336,7 +314,6 @@ const LINKS = [
   { source: 'slow_food', target: 'brauhaus_nolte', type: 'trusted', desc: 'Collaborates on slow-food events, local sourcing advice, and menu curation.' },
   { source: 'zukunftsrat', target: 'foodsharing', type: 'trusted', desc: 'Provides structural and organisational support to volunteer groups.' },
   { source: 'brauhaus_nolte', target: 'campus_ev', type: 'trusted', desc: 'A personal contact with broad reach across multiple local sectors — not a formal food-system actor, but a potential broker node.' },
-
   // ---- Missing but Plausible ----
   { source: 'market_vendors_association', target: 'stadt_lueneburg', type: 'missing', desc: 'Functions as a de facto broker, but communication stays informal and limited rather than a structured channel — vendors remain underrepresented in city decision-making.' },
   { source: 'maelzer', target: 'verein_luneburger_gastronomen', type: 'missing', desc: 'Named as a member, but the association is practically inactive for sourcing or logistics coordination.' },
@@ -348,12 +325,10 @@ const LINKS = [
   { source: 'frohnatur', target: 'naturparkregion', type: 'missing', desc: 'Requires consolidated regional transport to stay price-competitive.' },
   { source: 'viscvle', target: 'naturparkregion', type: 'missing', desc: 'A consolidated regional delivery platform is wanted to avoid fragmented, single-farm deliveries.' },
   { source: 'brauhaus_nolte', target: 'naturparkregion', type: 'missing', desc: 'Demand for centralized cold storage, washing, and distribution support.' },
-
   // ---- Structural Pressure ----
   { source: 'large_chain', target: 'hof_koch', type: 'pressure', desc: 'Downward price pressure restricts farm margins and undermines long-term viability.' },
   { source: 'large_chain', target: 'frohnatur', type: 'pressure', desc: 'Aggressive volume pricing undercuts zero-waste alternatives.' },
   { source: 'large_chain', target: 'maelzer', type: 'pressure', desc: 'Daily, reliable wholesale delivery sets a convenience standard that irregular local supply cannot match.' },
-
   // ---- Commercial Transaction ----
   { source: 'hof_koch', target: 'local_consumers', type: 'commercial', desc: 'Direct sales of bread, potatoes, and vegetables at the market and on-farm.' },
   { source: 'bio_roland', target: 'local_consumers', type: 'commercial', desc: 'Direct fruit and vegetable sales at the weekly market.' },
@@ -366,23 +341,19 @@ const LINKS = [
   { source: 'viscvle', target: 'large_chain', type: 'commercial', desc: 'Used alongside direct producer relationships for product range and volume reliability.' },
   { source: 'pons_bar', target: 'large_chain', type: 'commercial', desc: 'Handelshof\'s local base and wide selection reduce the logistics burden of sourcing many small farms individually.' },
   { source: 'brauhaus_nolte', target: 'large_chain', type: 'commercial', desc: 'Used as a backup supply channel when direct producer relationships fall through.' },
-
   // ---- External benchmark links (reference layer) ----
   { source: 'nearbuy', target: 'viscvle', type: 'reference', desc: 'Benchmark: a platform like this would supply the consolidated regional sourcing Viscvle lost after the street redesign.' },
   { source: 'nearbuy', target: 'naturparkregion', type: 'reference', desc: 'Benchmark: the kind of digital logistics layer the region currently lacks for consolidated delivery.' },
   { source: 'meckschweizer', target: 'market_vendors_association', type: 'reference', desc: 'Benchmark: a structured regional-marketing body of the sort vendors currently approximate only informally.' },
   { source: 'meckschweizer', target: 'frohnatur', type: 'reference', desc: 'Benchmark: consolidated regional supply that would let zero-waste retail stay price-competitive.' }
 ];
-
 document.getElementById('s-nodes').textContent = NODES.filter(n => !n.reference).length;
 document.getElementById('s-links').textContent = LINKS.filter(l => l.type !== 'reference').length;
-
 /* ---------- Network State ---------- */
 const degree = {};
 NODES.forEach(n => degree[n.id] = 0);
 LINKS.forEach(l => { degree[l.source]++; degree[l.target]++; });
 const maxDeg = Math.max(...Object.values(degree));
-
 /* ---------- Force-Directed Simulation (two-well zoning, wider canvas) ---------- */
 const W = 1360, H = 980;
 const WELL = {
@@ -393,7 +364,6 @@ const WELL = {
   reference: { x: W * 0.14, y: H * 0.22 }
 };
 function wellFor(n) { return WELL[n.zone] || WELL.local; }
-
 const nodes = NODES.map((n, i) => ({
   ...n,
   x: W/2 + Math.cos(i / NODES.length * Math.PI * 2) * 320 + (Math.random() - .5) * 50,
@@ -402,12 +372,9 @@ const nodes = NODES.map((n, i) => ({
 }));
 const idx = Object.fromEntries(nodes.map((n, i) => [n.id, i]));
 const links = LINKS.map(l => ({ source: idx[l.source], target: idx[l.target], type: l.type, desc: l.desc }));
-
-const FORCE = { repulsion: 3300, spring: 0.022, desired: 200, gravity: 0.0075 };
-
-function labelHalfW(n) { return Math.max(70, n.name.length * 4.2 + 10); }
+const FORCE = { repulsion: 4600, spring: 0.022, desired: 250, gravity: 0.0055 };
+function labelHalfW(n) { return Math.max(76, n.name.length * 4.8 + 12); }
 function nodeR(n) { return Math.max(13, 11 + (degree[n.id] / maxDeg) * 26); }
-
 function tick() {
   for (let i = 0; i < nodes.length; i++) {
     for (let j = i + 1; j < nodes.length; j++) {
@@ -460,7 +427,6 @@ function tick() {
 }
 function settle(steps = 500) { for (let k = 0; k < steps; k++) tick(); }
 settle();
-
 /* ---------- Render ---------- */
 const svg = document.getElementById('graph');
 const NS = 'http://www.w3.org/2000/svg';
@@ -470,16 +436,13 @@ svg.appendChild(zoomG);
 const linkLayer = document.createElementNS(NS, 'g');
 const nodeLayer = document.createElementNS(NS, 'g');
 zoomG.appendChild(linkLayer); zoomG.appendChild(nodeLayer);
-
 const linkEls = links.map(() => {
   const ln = document.createElementNS(NS, 'path');
   ln.setAttribute('class', 'link');
   linkLayer.appendChild(ln);
   return ln;
 });
-
 const LABEL_THRESHOLD = 2; // nodes with degree >= this show label permanently
-
 const nodeEls = nodes.map((n) => {
   const g = document.createElementNS(NS, 'g');
   let cls = 'node';
@@ -489,16 +452,13 @@ const nodeEls = nodes.map((n) => {
   if (degree[n.id] >= LABEL_THRESHOLD) cls += ' label-visible';
   g.setAttribute('class', cls);
   g.dataset.id = n.id;
-
   if (n.reach && !n.reference) {
     const ring = document.createElementNS(NS, 'circle');
     ring.setAttribute('class', 'reach-ring');
     g.appendChild(ring);
   }
-
   const c = document.createElementNS(NS, 'circle');
   g.appendChild(c);
-
   if (n.keyConnector) {
     const star = document.createElementNS(NS, 'text');
     star.setAttribute('class', 'star');
@@ -507,28 +467,23 @@ const nodeEls = nodes.map((n) => {
     star.textContent = '★';
     g.appendChild(star);
   }
-
   const t = document.createElementNS(NS, 'text');
   t.setAttribute('text-anchor', 'middle');
   t.setAttribute('class', degree[n.id] >= LABEL_THRESHOLD ? '' : 'label-minor');
   t.textContent = n.name;
   g.appendChild(t);
-
   nodeLayer.appendChild(g);
   g.addEventListener('click', (e) => { e.stopPropagation(); select(n.id); });
   g.addEventListener('mouseenter', () => g.classList.add('label-visible'));
   g.addEventListener('mouseleave', () => { if (degree[n.id] < LABEL_THRESHOLD && selected !== n.id) g.classList.remove('label-visible'); });
   return g;
 });
-
 function getVar(k) { return getComputedStyle(document.documentElement).getPropertyValue(k).trim(); }
-
 function restyleNodes() {
   const ink = getVar('--ink');
   const palette = { agri: getVar('--agri-color'), retail: getVar('--retail-color'), ngo: getVar('--ngo-color'), political: getVar('--political-color') };
   const largeColor = getVar('--large-chain-color');
   const marketColor = '#c9bfa3';
-
   nodes.forEach((n, i) => {
     const g = nodeEls[i];
     const c = g.querySelector('circle');
@@ -538,7 +493,6 @@ function restyleNodes() {
     const ring = g.querySelector('.reach-ring');
     if (ring) ring.setAttribute('r', r + 5);
     t.setAttribute('y', r + 17);
-
     let fill = palette[n.sphere] || getVar('--bg');
     if (n.zone === 'large') fill = largeColor;
     if (n.zone === 'market') fill = marketColor;
@@ -547,7 +501,6 @@ function restyleNodes() {
     c.setAttribute('stroke-width', n.keyConnector ? '4' : '1.8');
   });
 }
-
 function linkPath(a, b) {
   const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
   const dx = b.x - a.x, dy = b.y - a.y;
@@ -556,7 +509,6 @@ function linkPath(a, b) {
   const nx = -dy / len * off, ny = dx / len * off;
   return `M${a.x},${a.y} Q${mx + nx},${my + ny} ${b.x},${b.y}`;
 }
-
 function position() {
   links.forEach((l, i) => {
     const a = nodes[l.source], b = nodes[l.target];
@@ -567,7 +519,6 @@ function position() {
 }
 restyleNodes();
 position();
-
 /* ---------- Selection ---------- */
 let selected = null;
 function select(id) {
@@ -581,14 +532,17 @@ function select(id) {
   });
   nodeEls.forEach((g, i) => {
     const nid = nodes[i].id;
+    const isConn = connectedIds.has(nid);
     g.classList.toggle('active', nid === id);
-    g.classList.toggle('dim', !connectedIds.has(nid));
-    if (connectedIds.has(nid)) g.classList.add('label-visible');
+    g.classList.toggle('dim', !isConn);
+    if (isConn) { g.classList.remove('faded'); g.classList.add('label-visible'); }
     else if (degree[nid] < LABEL_THRESHOLD) g.classList.remove('label-visible');
   });
   linkEls.forEach((ln, i) => {
-    ln.classList.toggle('active', connectedLinks.has(i));
-    ln.classList.toggle('dim', !connectedLinks.has(i));
+    const isConn = connectedLinks.has(i);
+    ln.classList.toggle('active', isConn);
+    ln.classList.toggle('dim', !isConn);
+    if (isConn) ln.classList.remove('faded');
   });
   renderPanel(id);
 }
@@ -600,14 +554,14 @@ function clearSelect() {
     if (degree[nodes[i].id] < LABEL_THRESHOLD) g.classList.remove('label-visible');
   });
   linkEls.forEach(l => l.classList.remove('active', 'dim'));
+  applyFilter(activeSector);
   document.getElementById('panel-empty').style.display = 'none';
   document.getElementById('panel-detail').style.display = 'none';
 }
 svg.addEventListener('click', clearSelect);
-
 let lang = 'en';
 const SPHERE_LABEL_EN = { agri: 'Agricultural Producer', retail: 'Retail & Gastronomy', ngo: 'NGO / Civil Society', political: 'Political & Public Administration' };
-const SPHERE_LABEL_DE = { agri: 'Landwirtschaftlicher Erzeuger', retail: 'Handel & Gastronomie', ngo: 'NGO / Zivilgesellschaft', political: 'Politik & Verwaltung' };
+const SPHERE_LABEL_DE = { agri: 'Landwirtschaftlicher Erzeuger', retail: 'Handel & Gastronomie', ngo: 'NGOs & Zivilgesellschaft', political: 'Politik & Verwaltung' };
 const REL_LABEL_EN = { trusted: 'Active & Trusted', missing: 'Missing but Recommended', pressure: 'Structural Pressure', commercial: 'Commercial Transaction', reference: 'Benchmark Model' };
 const REL_LABEL_DE = { trusted: 'Aktiv & Vertrauensvoll', missing: 'Fehlend, aber empfohlen', pressure: 'Struktureller Druck', commercial: 'Kommerzielle Transaktion', reference: 'Vergleichsmodell' };
 const REACH_LABEL_EN = { regional: 'Regional reach (beyond Lüneburg)', national: 'National reach', international: 'International reach' };
@@ -615,10 +569,9 @@ const REACH_LABEL_DE = { regional: 'Regionale Reichweite (über Lüneburg hinaus
 const STATUS_LABEL_EN = { interviewed: 'Interviewed', contacted: 'Contacted, not coded', dormant: 'Inactive' };
 const STATUS_LABEL_DE = { interviewed: 'Interviewt', contacted: 'Kontaktiert, nicht codiert', dormant: 'Inaktiv' };
 const STATUS_COLOR = { interviewed: '#1b8a5a', contacted: '#9a8c6a', dormant: '#9ca3af' };
-const UI_EN = { largeChain: 'Large Chain / Wholesale', marketVenue: 'Market Venue', externalBenchmark: 'External Benchmark', keyConnector: 'Key Connector', perceivedPower: 'Perceived power:', specificEntities: 'Specific Entities', connections: 'Connections', back: '← back to overview' };
-const UI_DE = { largeChain: 'Große Kette / Großhandel', marketVenue: 'Marktstandort', externalBenchmark: 'Externes Vergleichsmodell', keyConnector: 'Schlüssel-Vermittler', perceivedPower: 'Wahrgenommene Macht:', specificEntities: 'Einzelne Akteure', connections: 'Verbindungen', back: '← zurück zur Übersicht' };
+const UI_EN = { largeChain: 'Large Chain / Wholesale', marketVenue: 'Market Venue', externalBenchmark: 'External Benchmark', keyConnector: 'Key Connector', perceivedPower: 'Perceived power:', specificEntities: 'Specific Entities', connections: 'Connections', back: '← back to overview', noMatches: 'No matches' };
+const UI_DE = { largeChain: 'Große Kette / Großhandel', marketVenue: 'Marktstandort', externalBenchmark: 'Externes Vergleichsmodell', keyConnector: 'Schlüssel-Vermittler', perceivedPower: 'Wahrgenommene Macht:', specificEntities: 'Einzelne Akteure', connections: 'Verbindungen', back: '← zurück zur Übersicht', noMatches: 'Keine Treffer' };
 let SPHERE_LABEL = SPHERE_LABEL_EN, REL_LABEL = REL_LABEL_EN, REACH_LABEL = REACH_LABEL_EN, STATUS_LABEL = STATUS_LABEL_EN, UI = UI_EN;
-
 // German names (only where they differ) and roles, for the lighter-pass translation
 const NAME_DE = {
   wochenmarkt: 'Lüneburger Wochenmarkt', biostadt_project: 'Biostadt-Projekt (inaktiv)', ernaehrungsrat: 'Ernährungsrat (inaktiv)',
@@ -634,37 +587,129 @@ const ROLE_DE = {
   hof_koch: 'Diversifizierter Direktvermarktungs-Hof', bio_roland: 'Unabhängiger Obst- & Gemüsehändler', wirgarten: 'Solidarische Landwirtschaft (Genossenschaft)',
   market_vendors_association: 'Händler- & Erzeugervereinigung', meckschweizer: 'Regionale Vermarktungs- & Beschaffungsplattform · Benchmark', nearbuy: 'Digitale B2B-Beschaffungsplattform · Benchmark'
 };
+// German descriptions (full free-text translation, keyed by node id)
+const DESC_DE = {
+  stadt_lueneburg: 'Verwaltet alle drei Lüneburger Märkte über ein kleines Verwaltungsteam. Besitzt die Hoheit über Lizenzen und Standvergabe, engagiert sich aber über den Marktbetrieb hinaus kaum aktiv mit Produzenten oder Gastronomie.',
+  naturparkregion: 'Konzentriert sich auf nachhaltige Regionalentwicklung und Logistik zwischen Stadt und Land. Im Rahmen der Kontaktaufnahme angesprochen; nicht Teil der codierten Interviewanalyse.',
+  biostadt_project: 'Eine städtische Initiative für die Bio-Beschaffung in öffentlichen Einrichtungen, bereit zur Reaktivierung. Der Stadtrat könnte sie im Alleingang wiederbeleben.',
+  wochenmarkt: 'Der städtische Wochenmarkt, betrieben vom kleinen Marktverwaltungsteam der Stadt Lüneburg. Ein zentraler Verkaufskanal für mehrere Produzenten, dessen Öffnungszeiten jedoch immer weniger zu modernen Einkaufsgewohnheiten passen.',
+  slow_food: 'Schafft Räume, in denen Produzenten, Händler und Verbraucher tatsächlich zusammenkommen, und erzählt dabei Geschichten über Saisonalität und Preise. Leistet institutionelle Brückenarbeit, ohne eine Institution im Rücken zu haben.',
+  zukunftsrat: 'Verbindet das ernährungspolitische Denken der Stadt mit der Alltagsrealität von Landwirten und Händlern. Hat den ruhenden Ernährungsrat und die Beschaffung für Schulen als konkrete Chancen identifiziert.',
+  foodsharing: 'Ein aktives ehrenamtliches Netzwerk, das seit rund einem Jahrzehnt überschüssige Lebensmittel aus lokalen Geschäften rettet.',
+  campus_ev: 'Eine große lokale Sozialinitiative mit 20-25 Projekteinheiten, die Gemeinschaftsgärten und inklusive Landwirtschaft vereint.',
+  local_consumers: 'Getragen von echtem ökologischem und sozialem Bewusstsein, doch die meisten Kaufentscheidungen fallen weiterhin vor allem über den Preis.',
+  ernaehrungsrat: 'Existiert formal, ist aber wegen Ehrenamtsmüdigkeit und fehlender finanzierter Koordination inaktiv. Die Landwirte haben sich zurückgezogen, sodass die Produktion im einzigen Gremium mit mehreren Interessengruppen nicht vertreten ist.',
+  edeka_tschorn: 'Inhabergeführt und eigenständig betrieben, treibt aktiv eine stärker lokale, qualitätsorientierte Beschaffung voran, auch bei höheren Kosten. Steht innerhalb der großen Handelsstruktur und lenkt zugleich Ressourcen zu lokalen Produzenten um – eine Brücke, kein einfacher Knoten.',
+  frohnatur: 'Wendiger Unverpackt-Laden, der direkt von lokalen Molkereien, Käsereien und Bäckereien bezieht. Sein Lieferantennetz funktioniert informell gut, hat aber kein institutionelles Rückgrat.',
+  brauhaus_nolte: 'Eine alteingesessene Familieninstitution, die auf Bio-Brauerei und stark lokalen, vertrauensvollen Lieferpartnerschaften beruht – getragen fast ausschließlich von persönlichem Vertrauen statt von Verträgen.',
+  viscvle: 'Kocht vollständig frisch und möchte regional einkaufen, verlor aber zwei bis drei lokale Produzenten, nachdem ein Straßenumbau die Anlieferung physisch erschwerte.',
+  pons_bar: 'Ein Bistro am Wasser mit knappen Margen; bereit, bio-regionale Produkte zu kaufen, kämpft aber mit wiederkehrenden Problemen bei Anlieferung und Parkraumkontrolle.',
+  maelzer: 'Bezieht überwiegend über den großen Großhandel; nur eine durchgängig aktive Verbindung zu einem lokalen Produzenten. Stellt die Lieferung des Großhandels am Folgetag der unregelmäßigen Versorgung durch lokale Produzenten gegenüber.',
+  verein_luneburger_gastronomen: 'Ein formaler Zusammenschluss lokaler Gastronomen, von mehreren Restaurants genannt, aber als praktisch inaktiv bei der Beschaffungskoordination beschrieben – eine vorhandene Struktur, die derzeit wenig bewirkt.',
+  large_chain: 'In dieser Gruppe stecken drei Akteure mit je eigener Rolle. Der konventionelle Konzernhandel (REWE/EDEKA-Zentrale) setzt über zentrale Einkaufsverträge die Preisuntergrenzen. Der Handelshof, inzwischen Edeka-eigen, ist der in jedem Gastronomie-Interview genannte Großhandelsanker und wirkt als sanfter Vermittler, der regionale Produkte über Verkostungen im Markt sichtbar macht. Transgourmet bietet größere Mengen und zuverlässige Lieferung am Folgetag, mit geringerer regionaler Spezifik.',
+  hof_koch: 'Seit 45 Jahren auf dem Lüneburger Wochenmarkt präsent; breit aufgestellt mit Kartoffeln, Getreide, Eiern, Brot und Gewächshausgemüse. Supermarktverträge können bei gemeinsamen Produktlinien die eigenen Produktionskosten unterbieten.',
+  bio_roland: 'Ein alteingesessener Wochenmarkthändler und früherer Erzeuger, 20-25 Jahre im Geschäft, beliefert auch lokale Schuleinrichtungen mit Obst. Organisiert den Einkauf persönlich über Großhändler und nahegelegene Höfe.',
+  wirgarten: 'Eine solidarische Gemüsegenossenschaft, die Lüneburger Haushalte direkt mit lokalen Ernteanteilen versorgt. Im Rahmen der Kontaktaufnahme angesprochen; nicht Teil der codierten Interviewanalyse.',
+  market_vendors_association: 'Der faktische Vermittler zwischen Marktbeschickern und Stadtverwaltung, wenngleich mit begrenzter Wirkung – der Austausch mit der Stadt ist regelmäßig, aber informell.',
+  meckschweizer: 'Ein externes Vergleichsmodell aus Mecklenburg-Vorpommern: eine strukturierte Plattform, die regionale Produkte für Handel und Gastronomie vermarktet und bündelt. Hier als Vorbild für die bündelnde Brückenrolle gezeigt, die in Lüneburg derzeit fehlt.',
+  nearbuy: 'Ein externes Vergleichsmodell: eine digitale B2B-Plattform, die regionale Produzenten direkt mit Restaurants und Händlern verbindet und Bestellung sowie Logistik übernimmt. Veranschaulicht die gebündelte regionale Lieferebene, die mehrere Lüneburger Akteure als notwendig nannten.'
+};
+// German "perceived power" notes, keyed by node id
+const POWER_DE = {
+  stadt_lueneburg: 'Hohe formale Autorität über Marktlizenzen und Regulierung, aber begrenztes aktives Engagement mit lokalen Lebensmittelakteuren.',
+  biostadt_project: 'Ruhende formale Autorität; die Reaktivierung erfordert nur Befugnisse, die die Stadt bereits besitzt.',
+  slow_food: 'Verbindet Produzenten, Händler und Verbraucher informell; ohne formale institutionelle Absicherung.',
+  zukunftsrat: 'Verbindet das politische Denken der Stadt mit der Realität von Produzenten und Händlern; hat Reaktivierungschancen aufgezeigt, die die Stadt bisher nicht genutzt hat.',
+  ernaehrungsrat: 'Ruhende formale Autorität – könnte reaktiviert werden, ohne eine neue Institution zu schaffen.',
+  edeka_tschorn: 'Agiert innerhalb der Großhandelsstruktur und lenkt die Beschaffung zugleich aktiv zu lokalen Produzenten.',
+  large_chain: 'Setzt den Preis- und Lieferstandard, den die unregelmäßige lokale Versorgung strukturell nicht erreichen kann.'
+};
+// German "reach" notes, keyed by node id
+const REACHNOTE_DE = {
+  naturparkregion: 'Agiert in der gesamten Region Lüneburger Heide, weit über die Stadtgrenze hinaus.',
+  biostadt_project: 'Spiegelt das bundesweite Biostädte-Netzwerk von Kommunen wider, die sich der ökologischen öffentlichen Beschaffung verschrieben haben.',
+  slow_food: 'Lokaler Ableger von Slow Food International – einer Bewegung in über 160 Ländern. Seine Vernetzungsarbeit stützt sich auf ein globales Vorgehen.',
+  foodsharing: 'Ein Knotenpunkt im bundesweiten foodsharing.de-Netzwerk, das in Deutschland, Österreich und der Schweiz aktiv ist.',
+  ernaehrungsrat: 'Ernährungsräte gibt es in über 80 deutschen Städten – andernorts oft durch Landes- oder Kommunalinitiativen angestoßen, ein Modell, das Lüneburg wiederbeleben könnte.',
+  wirgarten: 'Eine lokale Genossenschaft nach dem WirGarten-Franchise-Modell, das in mehreren deutschen Städten umgesetzt wird.',
+  meckschweizer: 'Agiert landesweit in Mecklenburg-Vorpommern – zum Vergleich aufgeführt, nicht Teil der Lüneburger Interviews.',
+  nearbuy: 'Bundesweit aktiv – zum Vergleich aufgeführt, nicht Teil der Lüneburger Interviews.'
+};
+// German connection quotes, keyed by "source|target"
+const LINK_DESC_DE = {
+  'stadt_lueneburg|wochenmarkt': 'Betreibt und lizenziert den Markt über ein kleines Verwaltungsteam.',
+  'hof_koch|wochenmarkt': 'Seit 45 Jahren feste Größe auf dem Wochenmarkt.',
+  'bio_roland|wochenmarkt': 'Verkauft auf dem Wochenmarkt; 20-25 Jahre als Händler.',
+  'hof_koch|market_vendors_association': 'Mitglied seit der Gründung der Vereinigung.',
+  'edeka_tschorn|hof_koch': 'Direkte Einkaufsbeziehung; der inhabergeführte Status umgeht die Listungshürden des Konzerns.',
+  'edeka_tschorn|brauhaus_nolte': 'Lokale Lieferpartnerschaft und gegenseitige Listungsförderung.',
+  'slow_food|brauhaus_nolte': 'Zusammenarbeit bei Slow-Food-Veranstaltungen, Beratung zur lokalen Beschaffung und Menügestaltung.',
+  'zukunftsrat|foodsharing': 'Bietet ehrenamtlichen Gruppen strukturelle und organisatorische Unterstützung.',
+  'brauhaus_nolte|campus_ev': 'Ein persönlicher Kontakt mit breiter Reichweite über mehrere lokale Bereiche hinweg – kein formaler Akteur des Ernährungssystems, aber ein möglicher Vermittlerknoten.',
+  'market_vendors_association|stadt_lueneburg': 'Wirkt als faktischer Vermittler, doch der Austausch bleibt informell und begrenzt statt ein strukturierter Kanal zu sein – die Händler bleiben in städtischen Entscheidungen unterrepräsentiert.',
+  'maelzer|verein_luneburger_gastronomen': 'Als Mitglied genannt, doch die Vereinigung ist bei Beschaffungs- oder Logistikkoordination praktisch inaktiv.',
+  'viscvle|verein_luneburger_gastronomen': 'Kennt die Vereinigung, doch sie bietet keine aktive Koordinationsunterstützung.',
+  'pons_bar|verein_luneburger_gastronomen': 'Ein formal bestehendes Netzwerk von Gleichgesinnten, das derzeit wenig für seine Gastronomie-Mitglieder leistet.',
+  'zukunftsrat|ernaehrungsrat': 'Sucht eine finanzierte Koordination, um den ruhenden Ernährungsrat wiederzubeleben.',
+  'stadt_lueneburg|biostadt_project': 'Die Zivilgesellschaft fordert die Reaktivierung der städtischen Leitlinien zur Bio-Beschaffung.',
+  'local_consumers|stadt_lueneburg': 'Forderung nach städtischem Schutz des Marktraums vor übermäßiger Konkurrenz durch Tagesstände.',
+  'frohnatur|naturparkregion': 'Benötigt gebündelten regionalen Transport, um preislich wettbewerbsfähig zu bleiben.',
+  'viscvle|naturparkregion': 'Eine gebündelte regionale Lieferplattform wird gewünscht, um zersplitterte Einzelhof-Lieferungen zu vermeiden.',
+  'brauhaus_nolte|naturparkregion': 'Bedarf an zentraler Kühllagerung, Wäsche und Distributionsunterstützung.',
+  'large_chain|hof_koch': 'Abwärtsdruck auf die Preise schmälert die Hofmargen und untergräbt die langfristige Tragfähigkeit.',
+  'large_chain|frohnatur': 'Aggressive Mengenpreise unterbieten Unverpackt-Alternativen.',
+  'large_chain|maelzer': 'Tägliche, verlässliche Großhandelslieferung setzt einen Komfortstandard, den die unregelmäßige lokale Versorgung nicht erreichen kann.',
+  'hof_koch|local_consumers': 'Direktverkauf von Brot, Kartoffeln und Gemüse auf dem Markt und ab Hof.',
+  'bio_roland|local_consumers': 'Direkter Obst- und Gemüseverkauf auf dem Wochenmarkt.',
+  'wirgarten|local_consumers': 'Genossenschaftliche Verträge über Gemüse-Ernteanteile.',
+  'frohnatur|local_consumers': 'Lebensmittelverkauf im Unverpackt-Handel.',
+  'viscvle|local_consumers': 'Gastronomie mit frisch zubereiteten Gerichten.',
+  'pons_bar|local_consumers': 'Verkauf von Speisen und Getränken im Bistro.',
+  'edeka_tschorn|large_chain': 'Die EDEKA-Zentrale bleibt der Hauptkanal für Standard- und nicht-lokale Produkte.',
+  'maelzer|large_chain': 'Dominanter Beschaffungskanal über den Großhandel Handelshof und Transgourmet.',
+  'viscvle|large_chain': 'Wird neben direkten Produzentenbeziehungen für Sortimentsbreite und Mengensicherheit genutzt.',
+  'pons_bar|large_chain': 'Der lokale Standort und die große Auswahl des Handelshofs verringern den Logistikaufwand, viele kleine Höfe einzeln zu beliefern.',
+  'brauhaus_nolte|large_chain': 'Wird als Ersatzkanal genutzt, wenn direkte Produzentenbeziehungen ausfallen.',
+  'nearbuy|viscvle': 'Vergleichsmodell: Eine solche Plattform würde die gebündelte regionale Beschaffung liefern, die Viscvle nach dem Straßenumbau verlor.',
+  'nearbuy|naturparkregion': 'Vergleichsmodell: die Art digitaler Logistikebene, die der Region derzeit für gebündelte Lieferung fehlt.',
+  'meckschweizer|market_vendors_association': 'Vergleichsmodell: eine strukturierte regionale Vermarktungsstelle, wie sie die Händler derzeit nur informell annähern.',
+  'meckschweizer|frohnatur': 'Vergleichsmodell: gebündelte regionale Versorgung, die es dem Unverpackt-Handel erlauben würde, preislich wettbewerbsfähig zu bleiben.'
+};
 function dn(n) { return (lang === 'de' && NAME_DE[n.id]) ? NAME_DE[n.id] : n.name; }
 function dr(n) { return (lang === 'de' && ROLE_DE[n.id]) ? ROLE_DE[n.id] : n.role; }
-
+function dd(n) { return (lang === 'de' && DESC_DE[n.id]) ? DESC_DE[n.id] : n.desc; }
+function dpow(n) { return (lang === 'de' && POWER_DE[n.id]) ? POWER_DE[n.id] : n.power; }
+function drn(n) { return (lang === 'de' && REACHNOTE_DE[n.id]) ? REACHNOTE_DE[n.id] : (n.reachNote || ''); }
+function dld(key, fallback) { return (lang === 'de' && LINK_DESC_DE[key]) ? LINK_DESC_DE[key] : fallback; }
 const STR = {
-  en: { eyebrow: 'LÜNEFRESH · STAKEHOLDER RESEARCH', title: 'Lüneburg Stakeholder Map', subtitle: "An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.", actors: 'Actors', relations: 'Relations', sectors: 'Sectors', fAll: 'All', fAgri: 'Agricultural', fRetail: 'Retail & Gastronomy', fNgo: 'NGOs & Civil Society', fPolitical: 'Political & Public', benchmarks: 'Benchmarks', searchPh: 'Search for an organization…', legTitleSectors: 'Actor Sectors', legAgri: 'Agricultural Producers', legRetail: 'Retail & Gastronomy', legNgo: 'NGOs & Civil Society', legPolitical: 'Political & Public Admin.', legGrey: 'Grey = large supermarket chain / wholesale', legTitleRel: 'Relationships', legTrusted: 'Active & Trusted', legCommercial: 'Commercial Transaction', legPressure: 'Structural Pressure', legMissing: 'Missing but Recommended', legConnector: 'Key Connector — bridges otherwise disconnected groups', legReach: 'Active beyond Lüneburg (40\u202fkm+) — reach shown in panel', legBenchmark: 'External benchmark model (not interviewed)' },
-  de: { eyebrow: 'LÜNEFRESH · STAKEHOLDER-ANALYSE', title: 'Lüneburg Stakeholder-Karte', subtitle: 'Eine interaktive Karte der wichtigsten Akteure im lokalen Lebensmittelsystem Lüneburgs – erstellt aus Stakeholder-Interviews und Netzwerkanalyse.', actors: 'Akteure', relations: 'Beziehungen', sectors: 'Sektoren', fAll: 'Alle', fAgri: 'Landwirtschaft', fRetail: 'Handel & Gastronomie', fNgo: 'NGOs & Zivilgesellschaft', fPolitical: 'Politik & Verwaltung', benchmarks: 'Benchmarks', searchPh: 'Organisation suchen…', legTitleSectors: 'Akteurs-Sektoren', legAgri: 'Landwirtschaftliche Erzeuger', legRetail: 'Handel & Gastronomie', legNgo: 'NGOs & Zivilgesellschaft', legPolitical: 'Politik & Verwaltung', legGrey: 'Grau = große Supermarktkette / Großhandel', legTitleRel: 'Beziehungen', legTrusted: 'Aktiv & Vertrauensvoll', legCommercial: 'Kommerzielle Transaktion', legPressure: 'Struktureller Druck', legMissing: 'Fehlend, aber empfohlen', legConnector: 'Schlüssel-Vermittler – verbindet sonst getrennte Gruppen', legReach: 'Aktiv über Lüneburg hinaus (40\u202fkm+) – Reichweite im Panel', legBenchmark: 'Externes Vergleichsmodell (nicht interviewt)' }
+  en: { eyebrow: 'LÜNEFRESH · STAKEHOLDER RESEARCH', title: 'Lüneburg Stakeholder Map', subtitle: "An interactive map of the key actors shaping Lüneburg's local food system, built through stakeholder interviews and network analysis.", actors: 'Actors', relations: 'Relations', sectors: 'Sectors', fAll: 'All', fAgri: 'Agricultural', fRetail: 'Retail & Gastronomy', fNgo: 'NGOs & Civil Society', fPolitical: 'Political & Public', benchmarks: 'Benchmarks', searchPh: 'Search for an organization…', legTitleSectors: 'Actor Sectors', legAgri: 'Agricultural Producers', legRetail: 'Retail & Gastronomy', legNgo: 'NGOs & Civil Society', legPolitical: 'Political & Public Admin.', legGrey: 'Grey = large supermarket chain / wholesale', legTitleRel: 'Relationships', legTrusted: 'Active & Trusted', legCommercial: 'Commercial Transaction', legPressure: 'Structural Pressure', legMissing: 'Missing but Recommended', legConnector: 'Key Connector — bridges otherwise disconnected groups', legReach: 'Active beyond Lüneburg (40 km+) — reach shown in panel', legBenchmark: 'External benchmark model (not interviewed)' },
+  de: { eyebrow: 'LÜNEFRESH · STAKEHOLDER-ANALYSE', title: 'Lüneburg Stakeholder-Karte', subtitle: 'Eine interaktive Karte der wichtigsten Akteure im lokalen Lebensmittelsystem Lüneburgs – erstellt aus Stakeholder-Interviews und Netzwerkanalyse.', actors: 'Akteure', relations: 'Beziehungen', sectors: 'Sektoren', fAll: 'Alle', fAgri: 'Landwirtschaft', fRetail: 'Handel & Gastronomie', fNgo: 'NGOs & Zivilgesellschaft', fPolitical: 'Politik & Verwaltung', benchmarks: 'Benchmarks', searchPh: 'Organisation suchen…', legTitleSectors: 'Akteurs-Sektoren', legAgri: 'Landwirtschaftliche Erzeuger', legRetail: 'Handel & Gastronomie', legNgo: 'NGOs & Zivilgesellschaft', legPolitical: 'Politik & Verwaltung', legGrey: 'Grau = große Supermarktkette / Großhandel', legTitleRel: 'Beziehungen', legTrusted: 'Aktiv & Vertrauensvoll', legCommercial: 'Kommerzielle Transaktion', legPressure: 'Struktureller Druck', legMissing: 'Fehlend, aber empfohlen', legConnector: 'Schlüssel-Vermittler – verbindet sonst getrennte Gruppen', legReach: 'Aktiv über Lüneburg hinaus (40 km+) – Reichweite im Panel', legBenchmark: 'Externes Vergleichsmodell (nicht interviewt)' }
 };
-
 // Specific entities folded into the consolidated large_chain node
 const LARGE_CHAIN_ENTITIES = [
   { name: 'Conventional Corporate Retail (REWE/EDEKA Central)', role: 'Central Buying Group', desc: 'Sets price floors through long-term contracts that local producers and retailers structurally cannot match.' },
   { name: 'Handelshof', role: 'Wholesale Distributor (Edeka-owned)', desc: 'Named in every restaurant interview as the primary wholesale anchor. Acts as a soft intermediary, surfacing regional products through tastings and notes.' },
   { name: 'Transgourmet', role: 'Wholesale Distributor', desc: 'Hamburg-based; offers broader product volume and reliable next-day delivery, with fewer regional products than Handelshof.' }
 ];
-
+const LARGE_CHAIN_ENTITIES_DE = [
+  { name: 'Konventioneller Konzernhandel (REWE/EDEKA-Zentrale)', role: 'Zentrale Einkaufsgruppe', desc: 'Setzt über langfristige Verträge Preisuntergrenzen, die lokale Produzenten und Händler strukturell nicht erreichen können.' },
+  { name: 'Handelshof', role: 'Großhandelsdistributor (Edeka-eigen)', desc: 'In jedem Gastronomie-Interview als wichtigster Großhandelsanker genannt. Wirkt als sanfter Vermittler und macht regionale Produkte über Verkostungen und Hinweise sichtbar.' },
+  { name: 'Transgourmet', role: 'Großhandelsdistributor', desc: 'Mit Sitz in Hamburg; bietet größere Produktmengen und zuverlässige Lieferung am Folgetag, mit weniger regionalen Produkten als der Handelshof.' }
+];
 function renderPanel(id) {
   const node = nodes.find(n => n.id === id);
   const rels = [];
   links.forEach(l => {
     const a = nodes[l.source], b = nodes[l.target];
-    if (a.id === id) rels.push({ other: b, type: l.type, desc: l.desc });
-    else if (b.id === id) rels.push({ other: a, type: l.type, desc: l.desc });
+    if (a.id === id) rels.push({ other: b, type: l.type, desc: l.desc, key: a.id + '|' + b.id });
+    else if (b.id === id) rels.push({ other: a, type: l.type, desc: l.desc, key: a.id + '|' + b.id });
   });
-
   const det = document.getElementById('panel-detail');
   let sphereLabel = SPHERE_LABEL[node.sphere];
   let sphereColor = getVar(`--${node.sphere}-color`);
   if (node.zone === 'large') { sphereLabel = UI.largeChain; sphereColor = getVar('--large-chain-color'); }
   if (node.zone === 'market') { sphereLabel = UI.marketVenue; sphereColor = '#c9bfa3'; }
   if (node.reference) { sphereLabel = UI.externalBenchmark; sphereColor = getVar('--accent'); }
-
   let badges = '';
   if (node.status || node.dormant) {
     const st = node.status || 'dormant';
@@ -676,26 +721,25 @@ function renderPanel(id) {
   } else if (node.keyConnector) {
     badges = `<div style="margin:8px 0 12px;"><span style="display:inline-flex;align-items:center;gap:4px;padding:6px 15px;border-radius:999px;background:#d9770618;border:1.5px solid #d97706;font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#d97706">★ ${UI.keyConnector}</span></div>`;
   }
-
-  const powerHTML = node.power ? `<div style="margin:6px 0 16px;padding:12px 16px;background:var(--accent-soft);border-radius:12px;font-size:14px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${UI.perceivedPower}</strong> ${node.power}</div>` : '';
-  const reachHTML = node.reach ? `<div style="margin:6px 0 16px;padding:11px 15px;background:color-mix(in oklab, var(--reach-color) 11%, #fff);border:1px solid color-mix(in oklab, var(--reach-color) 32%, transparent);border-radius:12px;font-size:13.5px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${REACH_LABEL[node.reach]}.</strong> ${node.reachNote || ''}</div>` : '';
-
+  const pw = dpow(node);
+  const powerHTML = node.power ? `<div style="margin:6px 0 16px;padding:12px 16px;background:var(--accent-soft);border-radius:12px;font-size:14px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${UI.perceivedPower}</strong> ${pw}</div>` : '';
+  const reachHTML = node.reach ? `<div style="margin:6px 0 16px;padding:11px 15px;background:color-mix(in oklab, var(--reach-color) 11%, #fff);border:1px solid color-mix(in oklab, var(--reach-color) 32%, transparent);border-radius:12px;font-size:13.5px;line-height:1.55;color:var(--ink-2);"><strong style="color:var(--ink);">${REACH_LABEL[node.reach]}.</strong> ${drn(node)}</div>` : '';
   let entitiesHTML = '';
   if (node.id === 'large_chain') {
-    entitiesHTML = `<div class="section-label">${UI.specificEntities}</div>` + LARGE_CHAIN_ENTITIES.map(e => `
+    const ents = (lang === 'de') ? LARGE_CHAIN_ENTITIES_DE : LARGE_CHAIN_ENTITIES;
+    entitiesHTML = `<div class="section-label">${UI.specificEntities}</div>` + ents.map(e => `
       <div class="entity-card">
         <div class="entity-name">${e.name}</div>
         <div class="entity-role">${e.role}</div>
         <div class="entity-desc">${e.desc}</div>
       </div>`).join('');
   }
-
   det.innerHTML = `
     <div class="cat" style="color:${sphereColor};font-weight:700;">${sphereLabel}</div>
     <h2>${dn(node)}</h2>
     <div style="font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:700;color:var(--ink-2);margin-bottom:2px;">${dr(node)}</div>
     ${badges}
-    <p class="sub">${node.desc}</p>
+    <p class="sub">${dd(node)}</p>
     ${powerHTML}
     ${reachHTML}
     ${entitiesHTML}
@@ -707,7 +751,7 @@ function renderPanel(id) {
             <span class="partner-name">${dn(r.other)}</span>
             <span class="rel-badge ${r.type}">${REL_LABEL[r.type]}</span>
           </div>
-          <div class="rel-desc">"${r.desc}"</div>
+          <div class="rel-desc">"${dld(r.key, r.desc)}"</div>
         </li>
       `).join('')}
     </ul>
@@ -718,7 +762,6 @@ function renderPanel(id) {
   det.querySelectorAll('li').forEach(li => li.addEventListener('click', (e) => { e.stopPropagation(); select(li.dataset.id); }));
   document.getElementById('clearBtn').addEventListener('click', clearSelect);
 }
-
 /* ---------- Sector filters ---------- */
 const sfButtons = document.querySelectorAll('.sf-btn');
 function inSector(n, s) { return n.sphere === s || (n.zone === 'large' && s === 'retail'); }
@@ -735,22 +778,16 @@ function applyFilter(s) {
   }
   const matched = new Set();
   nodes.forEach(n => { if (inSector(n, s)) matched.add(n.id); });
-  const neighbor = new Set();
-  links.forEach(l => {
-    const a = nodes[l.source].id, b = nodes[l.target].id;
-    if (matched.has(a)) neighbor.add(b);
-    if (matched.has(b)) neighbor.add(a);
-  });
   nodeEls.forEach((g, i) => {
     const id = nodes[i].id;
-    const keep = matched.has(id) || neighbor.has(id);
+    const keep = matched.has(id);
     g.classList.toggle('faded', !keep);
     if (keep) g.classList.add('label-visible');
     else if (degree[id] < LABEL_THRESHOLD) g.classList.remove('label-visible');
   });
   linkEls.forEach((ln, i) => {
     const l = links[i];
-    const show = matched.has(nodes[l.source].id) || matched.has(nodes[l.target].id);
+    const show = matched.has(nodes[l.source].id) && matched.has(nodes[l.target].id);
     ln.classList.toggle('faded', !show);
   });
 }
@@ -763,7 +800,6 @@ sfButtons.forEach(btn => {
     applyFilter(activeSector);
   });
 });
-
 /* ---------- Search ---------- */
 const searchBox = document.getElementById('searchBox');
 const searchResults = document.getElementById('searchResults');
@@ -771,7 +807,7 @@ searchBox.addEventListener('input', () => {
   const q = searchBox.value.trim().toLowerCase();
   if (!q) { searchResults.classList.remove('open'); searchResults.innerHTML = ''; return; }
   const matches = nodes.filter(n => dn(n).toLowerCase().includes(q) || n.name.toLowerCase().includes(q));
-  if (!matches.length) { searchResults.innerHTML = '<div class="search-result-item" style="color:var(--ink-2);">No matches</div>'; searchResults.classList.add('open'); return; }
+  if (!matches.length) { searchResults.innerHTML = `<div class="search-result-item" style="color:var(--ink-2);">${UI.noMatches}</div>`; searchResults.classList.add('open'); return; }
   searchResults.innerHTML = matches.map(n => `<div class="search-result-item" data-id="${n.id}"><span style="width:9px;height:9px;border-radius:50%;background:${n.reference?getVar('--accent'):n.zone==='large'?getVar('--large-chain-color'):getVar('--'+n.sphere+'-color')};display:inline-block;"></span>${dn(n)}</div>`).join('');
   searchResults.classList.add('open');
   searchResults.querySelectorAll('.search-result-item').forEach(el => {
@@ -782,7 +818,6 @@ searchBox.addEventListener('input', () => {
 });
 searchBox.addEventListener('focus', () => { if (searchResults.innerHTML) searchResults.classList.add('open'); });
 document.addEventListener('click', (e) => { if (!e.target.closest('.search-wrap')) searchResults.classList.remove('open'); });
-
 /* ---------- Drag individual nodes ---------- */
 let drag = null;
 nodeEls.forEach((g, i) => { g.addEventListener('mousedown', (e) => { drag = { i }; e.preventDefault(); }); });
@@ -795,7 +830,6 @@ svg.addEventListener('mousemove', (e) => {
   for (let k = 0; k < 4; k++) tick();
   position();
 });
-
 /* ---------- Zoom & Pan ---------- */
 let zScale = 1, zX = 0, zY = 0;
 function applyZoom() { zoomG.setAttribute('transform', `translate(${zX},${zY}) scale(${zScale})`); }
@@ -813,7 +847,6 @@ svg.addEventListener('wheel', (e) => {
 document.getElementById('btn-zoom-in').addEventListener('click', () => { zScale = Math.min(6, zScale * 1.3); applyZoom(); });
 document.getElementById('btn-zoom-out').addEventListener('click', () => { zScale = Math.max(0.2, zScale / 1.3); applyZoom(); });
 document.getElementById('btn-zoom-reset').addEventListener('click', () => { fitToView(); });
-
 let panStart = null;
 svg.addEventListener('mousedown', (e) => {
   if (e.target === svg || e.target.id === 'zoomGroup') { panStart = { mx: e.clientX, my: e.clientY, ox: zX, oy: zY }; svg.style.cursor = 'grabbing'; }
@@ -822,12 +855,10 @@ svg.addEventListener('mousemove', (e) => {
   if (panStart && !drag) { zX = panStart.ox + (e.clientX - panStart.mx); zY = panStart.oy + (e.clientY - panStart.my); applyZoom(); }
 });
 window.addEventListener('mouseup', () => { panStart = null; drag = null; svg.style.cursor = ''; });
-
 /* ---------- Drawer & benchmark toggle ---------- */
 document.getElementById('drawerClose').addEventListener('click', clearSelect);
 const refToggle = document.getElementById('refToggle');
 refToggle.addEventListener('click', () => { document.body.classList.toggle('hide-ref'); fitToView(); });
-
 /* ---------- Fit to view ---------- */
 function fitToView() {
   const hideRef = document.body.classList.contains('hide-ref');
@@ -847,7 +878,6 @@ function fitToView() {
 }
 fitToView();
 window.addEventListener('resize', fitToView);
-
 /* ---------- Language toggle ---------- */
 function applyLang() {
   document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (STR[lang][k] != null) el.textContent = STR[lang][k]; });
